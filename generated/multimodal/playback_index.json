@@ -1,6 +1,6 @@
 {
   "version": "traveljournal_playback_index_v0.5",
-  "generated_at": "2026-06-24T09:15:58Z",
+  "generated_at": "2026-06-24T12:30:49Z",
   "episodes": [
     {
       "day_id": "D36",
@@ -34,7 +34,7 @@
       "audio_duration_sec": 180.432,
       "share_status": "local_private_review",
       "public_share_ready": false,
-      "updated_at": "2026-06-24T09:15:58Z"
+      "updated_at": "2026-06-24T12:30:49Z"
     }
   ]
 }
