@@ -45,7 +45,8 @@
       cursor: pointer;
       background: #050708;
     }
-    .replay-stage:fullscreen {
+    .replay-stage:fullscreen,
+    .replay-stage:-webkit-full-screen {
       width: 100vw;
       height: 100vh;
       background: #050708;
@@ -222,7 +223,7 @@
 </head>
 <body>
   <main class="immersive-replay" data-share-scope="first-cohort-preview" data-p1b-capability="structured-replay">
-    <section id="replay-stage" class="replay-stage" aria-label="Travel photo replay">
+    <section id="replay-stage" class="replay-stage" aria-label="Open image fullscreen" role="button" tabindex="0">
       <img id="replay-a" class="replay-layer is-active" alt="">
       <img id="replay-b" class="replay-layer" alt="">
     </section>
@@ -492,13 +493,41 @@
       renderCue(cueIndexAt(audio.currentTime));
     }
 
+    function fullscreenElement() {
+      return document.fullscreenElement || document.webkitFullscreenElement || null;
+    }
+
+    function fullscreenEnabled() {
+      return document.fullscreenEnabled || document.webkitFullscreenEnabled;
+    }
+
+    function requestStageFullscreen() {
+      if (!replayStage) return Promise.resolve();
+      if (replayStage.requestFullscreen) return replayStage.requestFullscreen();
+      if (replayStage.webkitRequestFullscreen) return replayStage.webkitRequestFullscreen();
+      return Promise.resolve();
+    }
+
+    function exitFullscreen() {
+      if (document.exitFullscreen) return document.exitFullscreen();
+      if (document.webkitExitFullscreen) return document.webkitExitFullscreen();
+      return Promise.resolve();
+    }
+
     async function toggleImageFullscreen() {
-      if (!replayStage || !document.fullscreenEnabled) return;
-      if (document.fullscreenElement === replayStage) {
-        await document.exitFullscreen();
+      if (!replayStage || !fullscreenEnabled()) return;
+      if (fullscreenElement() === replayStage) {
+        await exitFullscreen();
         return;
       }
-      await replayStage.requestFullscreen();
+      await requestStageFullscreen();
+      syncFromAudio();
+    }
+
+    function handleStageKeydown(event) {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      toggleImageFullscreen().catch(() => undefined);
     }
 
     if (audio) {
@@ -513,7 +542,10 @@
       replayStage.addEventListener('click', () => {
         toggleImageFullscreen().catch(() => undefined);
       });
+      replayStage.addEventListener('keydown', handleStageKeydown);
     }
+    document.addEventListener('fullscreenchange', syncFromAudio);
+    document.addEventListener('webkitfullscreenchange', syncFromAudio);
     if (showDebugInfo) {
       renderMemoryCards();
       renderRouteSegments();
