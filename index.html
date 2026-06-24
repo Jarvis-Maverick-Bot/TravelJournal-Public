@@ -28,7 +28,7 @@
     main {
       width: min(560px, 100%);
       display: grid;
-      gap: 16px;
+      gap: 18px;
     }
     h1 {
       margin: 0;
@@ -42,23 +42,39 @@
       font-size: 15px;
       line-height: 1.6;
     }
-    .status {
-      width: fit-content;
-      padding: 7px 10px;
-      border: 1px solid rgba(139, 214, 173, 0.72);
-      border-radius: 999px;
-      color: var(--accent);
-      font-size: 12px;
-      line-height: 1.2;
+    .actions {
+      display: grid;
+      gap: 10px;
+    }
+    a {
+      display: block;
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--text);
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.06);
+    }
+    a.primary {
+      border-color: rgba(139, 214, 173, 0.74);
+      background: rgba(139, 214, 173, 0.13);
+    }
+    small {
+      color: var(--muted);
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
   <main>
-    <div class="status">waiting manual confirmation</div>
     <h1>TravelJournal First Cohort</h1>
-    <p>首批用户静态预览页已预留。当前内容还没有经过 Alex 手工确认，因此正式 D36 回放尚未公开发布。</p>
-    <p>确认后，这里会替换为包含图片、音频、文字和反馈入口的 first cohort preview。</p>
+    <p>D36｜贝尔格莱德 → 布达佩斯 → 维也纳。请优先用手机打开沉浸回放，播放音频并观察图片、caption 和旁白是否同步。</p>
+    <div class="actions">
+      <a class="primary" href="generated/multimodal/D36/replay.html">打开手机沉浸回放</a>
+      <a href="generated/multimodal/D36/player.html">打开桌面调试播放器</a>
+      <a href="generated/multimodal/D36/user-feedback-template.md">查看反馈模板</a>
+    </div>
+    <small>First cohort preview only. Alex controls user selection and sharing scope.</small>
   </main>
 </body>
 </html>

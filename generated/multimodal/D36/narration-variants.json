@@ -1,0 +1,125 @@
+{
+  "version": "traveljournal_structured_replay_p1a_v0.5",
+  "day_id": "D36",
+  "route": "贝尔格莱德 → 布达佩斯 → 维也纳",
+  "generated_at": "2026-06-24T09:15:58Z",
+  "variants": [
+    {
+      "variant_id": "intro_15s",
+      "target_duration_seconds": 15,
+      "title": "D36 15s intro",
+      "text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。 起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。",
+      "intended_surface": "share_preview",
+      "source_cards": [
+        "d36_overview",
+        "d36_emotion_transition"
+      ],
+      "source_cues": [
+        0,
+        1
+      ],
+      "privacy_level": "local_private_review",
+      "shareable": false
+    },
+    {
+      "variant_id": "replay_45s",
+      "target_duration_seconds": 45,
+      "title": "D36 45s replay",
+      "text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。 起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。 从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。 河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。 跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。",
+      "intended_surface": "mobile_replay",
+      "source_cards": [
+        "d36_overview",
+        "d36_location_belgrade",
+        "d36_location_novi_sad",
+        "d36_location_subotica",
+        "d36_location_szeged",
+        "d36_location_budapest"
+      ],
+      "source_cues": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "privacy_level": "local_private_review",
+      "shareable": false
+    },
+    {
+      "variant_id": "story_90s",
+      "target_duration_seconds": 90,
+      "title": "D36 90s story",
+      "text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。 起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。 从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。 河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。 跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。 抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。 离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。 最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。 最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。",
+      "intended_surface": "full_story",
+      "source_cards": [
+        "d36_overview",
+        "d36_location_belgrade",
+        "d36_location_novi_sad",
+        "d36_location_subotica",
+        "d36_location_szeged",
+        "d36_location_budapest",
+        "d36_location_gyor",
+        "d36_location_vienna",
+        "d36_belgrade_to_novi_sad_card",
+        "d36_novi_sad_to_subotica_card",
+        "d36_subotica_to_szeged_card",
+        "d36_szeged_to_budapest_card",
+        "d36_budapest_to_gyor_card",
+        "d36_gyor_to_vienna_card",
+        "d36_emotion_transition",
+        "d36_summary"
+      ],
+      "source_cues": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "privacy_level": "local_private_review",
+      "shareable": false
+    },
+    {
+      "variant_id": "immersive_3min",
+      "target_duration_seconds": 180,
+      "title": "D36 3min immersive",
+      "text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。 起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。 从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。 河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。 跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。 抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。 离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。 最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。 最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。",
+      "intended_surface": "immersive",
+      "source_cards": [
+        "d36_overview",
+        "d36_location_belgrade",
+        "d36_location_novi_sad",
+        "d36_location_subotica",
+        "d36_location_szeged",
+        "d36_location_budapest",
+        "d36_location_gyor",
+        "d36_location_vienna",
+        "d36_belgrade_to_novi_sad_card",
+        "d36_novi_sad_to_subotica_card",
+        "d36_subotica_to_szeged_card",
+        "d36_szeged_to_budapest_card",
+        "d36_budapest_to_gyor_card",
+        "d36_gyor_to_vienna_card",
+        "d36_emotion_transition",
+        "d36_summary"
+      ],
+      "source_cues": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "privacy_level": "local_private_review",
+      "shareable": false
+    }
+  ]
+}

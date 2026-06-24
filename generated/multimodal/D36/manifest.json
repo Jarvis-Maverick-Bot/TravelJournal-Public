@@ -1,0 +1,242 @@
+{
+  "day_id": "D36",
+  "route": "贝尔格莱德 → 布达佩斯 → 维也纳",
+  "entry_path": "entries/2026-06-21-D36.md",
+  "image_paths": [
+    "images/D36/postcard-1.png",
+    "images/D36/postcard-2.png",
+    "images/D36/postcard-3.png",
+    "images/D36/postcard-4.png",
+    "images/D36/postcard-5.png",
+    "images/D36/postcard-6.png",
+    "images/D36/postcard-7.png",
+    "images/D36/special-view-1.png",
+    "images/D36/summary.png"
+  ],
+  "narration_script_path": "generated/multimodal/D36/narration-script.md",
+  "audio_path": "generated/multimodal/D36/narration.mp3",
+  "audio_duration_sec": 180.432,
+  "player_path": "generated/multimodal/D36/player.html",
+  "mobile_replay_path": "generated/multimodal/D36/replay.html",
+  "privacy_share_check_path": "generated/multimodal/D36/privacy-share-check.json",
+  "feedback_template_path": "generated/multimodal/D36/user-feedback-template.md",
+  "playback_index_path": "generated/multimodal/playback_index.json",
+  "memory_cards_path": "generated/multimodal/D36/memory_cards.json",
+  "media_metadata_path": "generated/multimodal/D36/media_metadata.json",
+  "route_segments_path": "generated/multimodal/D36/route_segments.json",
+  "narration_variants_path": "generated/multimodal/D36/narration-variants.json",
+  "image_prompt_plan_path": "generated/multimodal/D36/image-prompt-plan.md",
+  "uat_readiness_path": "generated/multimodal/D36/uat-readiness.md",
+  "uat_checklist_path": "generated/multimodal/D36/uat-checklist.json",
+  "first_cohort_instructions_path": "generated/multimodal/D36/first-cohort-instructions.md",
+  "replay_capabilities": {
+    "p1b_structured_replay": true,
+    "replay_uses_memory_cards": true,
+    "replay_uses_route_segments": true,
+    "replay_uses_media_metadata": true,
+    "replay_uses_narration_variants": true
+  },
+  "cue_map_version": "audio_timeline_v0.1",
+  "cue_map": [
+    {
+      "image_path": "images/D36/summary.png",
+      "caption": "D36 路线总览",
+      "beat_label": "路线总览",
+      "narration_text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。",
+      "narration_excerpt": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。",
+      "narration_beat": "路线总览",
+      "match_reason": "route overview image used for the opening timeline beat",
+      "start_sec": 0,
+      "end_sec": 9.792,
+      "segment_duration_sec": 9.792,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 9.792,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 3,
+        "narration_priority": 1,
+        "map_focus": "Belgrade to Vienna"
+      }
+    },
+    {
+      "image_path": "images/D36/postcard-1.png",
+      "caption": "贝尔格莱德城堡与萨瓦—多瑙河汇流",
+      "beat_label": "贝尔格莱德城堡与萨瓦—多瑙河汇流",
+      "narration_text": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。",
+      "narration_excerpt": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。",
+      "narration_beat": "贝尔格莱德城堡与萨瓦—多瑙河汇流",
+      "match_reason": "matched entry visual section for postcard-1.png",
+      "start_sec": 9.792,
+      "end_sec": 33.66,
+      "segment_duration_sec": 23.868,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 23.868,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 2,
+        "narration_priority": 2,
+        "map_focus": "Belgrade"
+      }
+    },
+    {
+      "image_path": "images/D36/postcard-2.png",
+      "caption": "彼得罗瓦拉丁要塞与多瑙河",
+      "beat_label": "彼得罗瓦拉丁要塞与多瑙河",
+      "narration_text": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。",
+      "narration_excerpt": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。",
+      "narration_beat": "彼得罗瓦拉丁要塞与多瑙河",
+      "match_reason": "matched entry visual section for postcard-2.png",
+      "start_sec": 33.66,
+      "end_sec": 55.944,
+      "segment_duration_sec": 22.284,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 22.284,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 2,
+        "narration_priority": 2,
+        "map_focus": "Novi Sad"
+      }
+    },
+    {
+      "image_path": "images/D36/postcard-3.png",
+      "caption": "苏博蒂察市政厅",
+      "beat_label": "苏博蒂察市政厅",
+      "narration_text": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。",
+      "narration_excerpt": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。",
+      "narration_beat": "苏博蒂察市政厅",
+      "match_reason": "matched entry visual section for postcard-3.png",
+      "start_sec": 55.944,
+      "end_sec": 79.344,
+      "segment_duration_sec": 23.4,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 23.4,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 2,
+        "narration_priority": 2,
+        "map_focus": "Subotica"
+      }
+    },
+    {
+      "image_path": "images/D36/postcard-4.png",
+      "caption": "塞格德还愿教堂与蒂萨河",
+      "beat_label": "塞格德还愿教堂与蒂萨河",
+      "narration_text": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。",
+      "narration_excerpt": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。",
+      "narration_beat": "塞格德还愿教堂与蒂萨河",
+      "match_reason": "matched entry visual section for postcard-4.png",
+      "start_sec": 79.344,
+      "end_sec": 99.612,
+      "segment_duration_sec": 20.268,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 20.268,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 2,
+        "narration_priority": 2,
+        "map_focus": "Szeged"
+      }
+    },
+    {
+      "image_path": "images/D36/postcard-5.png",
+      "caption": "匈牙利国会大厦与链桥",
+      "beat_label": "匈牙利国会大厦与链桥",
+      "narration_text": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。",
+      "narration_excerpt": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。",
+      "narration_beat": "匈牙利国会大厦与链桥",
+      "match_reason": "matched entry visual section for postcard-5.png",
+      "start_sec": 99.612,
+      "end_sec": 118.188,
+      "segment_duration_sec": 18.576,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 18.576,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 2,
+        "narration_priority": 1,
+        "map_focus": "Budapest"
+      }
+    },
+    {
+      "image_path": "images/D36/postcard-6.png",
+      "caption": "杰尔巴洛克老城",
+      "beat_label": "杰尔巴洛克老城",
+      "narration_text": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。",
+      "narration_excerpt": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。",
+      "narration_beat": "杰尔巴洛克老城",
+      "match_reason": "matched entry visual section for postcard-6.png",
+      "start_sec": 118.188,
+      "end_sec": 140.904,
+      "segment_duration_sec": 22.716,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 22.716,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 2,
+        "narration_priority": 2,
+        "map_focus": "Gyor"
+      }
+    },
+    {
+      "image_path": "images/D36/postcard-7.png",
+      "caption": "圣斯蒂芬大教堂与维也纳环城大道",
+      "beat_label": "圣斯蒂芬大教堂与维也纳环城大道",
+      "narration_text": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。",
+      "narration_excerpt": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。",
+      "narration_beat": "圣斯蒂芬大教堂与维也纳环城大道",
+      "match_reason": "matched entry visual section for postcard-7.png",
+      "start_sec": 140.904,
+      "end_sec": 163.188,
+      "segment_duration_sec": 22.284,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 22.284,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 2,
+        "narration_priority": 2,
+        "map_focus": "Vienna"
+      }
+    },
+    {
+      "image_path": "images/D36/special-view-1.png",
+      "caption": "高处回看路线结构",
+      "beat_label": "路线回看",
+      "narration_text": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。",
+      "narration_excerpt": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。",
+      "narration_beat": "路线回看",
+      "match_reason": "special overview image used for the closing route beat",
+      "start_sec": 163.188,
+      "end_sec": 180.432,
+      "segment_duration_sec": 17.244,
+      "timing_source": "measured_segment_audio",
+      "playback_pacing": {
+        "suggested_duration_seconds": 17.244,
+        "transition_type": "soft_crossfade",
+        "visual_priority": 3,
+        "narration_priority": 2,
+        "map_focus": "Danube corridor"
+      }
+    }
+  ],
+  "tts_provider": "azure_speech",
+  "tts_voice": "zh-CN-XiaoxiaoNeural",
+  "narration_style": "tts_travelogue_v0.2",
+  "narration_target_seconds": 90,
+  "generated_at": "2026-06-24T09:15:58Z",
+  "status": "complete",
+  "warnings": [],
+  "source_checksums": {
+    "entry_path": "1d31d6d4101f19aa71c02f6a0a6c48c4e8434cd8ab01276cd5b6324b9095a12e",
+    "itinerary_path": "7f7f72e1d86f6eee1414fcac727f0d91eb54325872475423b4129f043f37dd75",
+    "images/D36/postcard-1.png": "76de13346beb773858bf9081cd69df9aa3a2559ffc726bb4d89dda11a7ef78c8",
+    "images/D36/postcard-2.png": "3ab24df0e75d53d24e53bc79b5b25fa54ea3968551f20396f288584217d87513",
+    "images/D36/postcard-3.png": "ea3abb1a64a6b476674626512ee53df6c09abdc85fd9aa18ce960582ea4599fa",
+    "images/D36/postcard-4.png": "c129644ed5edda39473f1a5dc34416f5fc1a26acedd86328ad1375c279f1e777",
+    "images/D36/postcard-5.png": "524cda7686b9cad06b923168dff62fe25a272b5c566b212d93747619b01a5a89",
+    "images/D36/postcard-6.png": "728f1a68bc99f0e6eb23249b345bbf115818af697117f615150425ff6765ee1e",
+    "images/D36/postcard-7.png": "4e4e3c7e6cea253599c73eafe71ccd104d9ac164b070d0efe92e5ab846215f0c",
+    "images/D36/special-view-1.png": "464e37fbfd57abc98a43fabf0422529a375bfd12250d595ecfe40d45d503e249",
+    "images/D36/summary.png": "4576a3b2bfbfe1a55450b894ae6c77c7e841cd628fdc4f082438b75fd644f1af"
+  }
+}

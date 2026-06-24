@@ -1,0 +1,68 @@
+{
+  "version": "traveljournal_uat_readiness_p1c_v0.5",
+  "day_id": "D36",
+  "generated_at": "2026-06-24T09:15:58Z",
+  "uat_pass": false,
+  "verdict": "READY_FOR_FIRST_COHORT_REVIEW",
+  "acceptance_decisions": [
+    "ACCEPT_FOR_FIRST_COHORT",
+    "NEEDS_FIX",
+    "BLOCKED"
+  ],
+  "checks": {
+    "replay_page_exists": {
+      "passed": true,
+      "path": "generated/multimodal/D36/replay.html"
+    },
+    "memory_cards_available": {
+      "passed": true,
+      "count": 16
+    },
+    "route_segments_available": {
+      "passed": true,
+      "count": 6
+    },
+    "media_metadata_available": {
+      "passed": true,
+      "count": 9
+    },
+    "narration_variants_available": {
+      "passed": true,
+      "count": 4
+    },
+    "audio": {
+      "status": "complete",
+      "audio_path": "generated/multimodal/D36/narration.mp3",
+      "available": true
+    },
+    "cue_count": {
+      "passed": true,
+      "value": 9
+    },
+    "p1b_capability_flags": {
+      "passed": true,
+      "flags": {
+        "p1b_structured_replay": true,
+        "replay_uses_memory_cards": true,
+        "replay_uses_route_segments": true,
+        "replay_uses_media_metadata": true,
+        "replay_uses_narration_variants": true
+      }
+    },
+    "privacy_share_status": {
+      "share_status": "local_private_review",
+      "public_share_ready": false,
+      "absolute_paths_found": 0,
+      "secret_markers_found": 0
+    },
+    "generated_output_tracking": {
+      "expected_git_ls_files": "",
+      "summary": "generated/, images/, and cache/ must remain ignored/untracked; verify with git ls-files generated images cache."
+    },
+    "browser_smoke": {
+      "status": "not_run_by_builder",
+      "preferred_viewport": "390x844",
+      "expected_evidence_dir": "generated/multimodal/D36/browser-evidence"
+    }
+  }
+}

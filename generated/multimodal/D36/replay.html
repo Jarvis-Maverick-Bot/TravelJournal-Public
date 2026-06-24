@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>第36天 旅程回放</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090c0f;
+      --text: #f4f7f4;
+      --muted: #b2c0ba;
+      --panel: rgba(9, 12, 15, 0.72);
+      --line: rgba(255, 255, 255, 0.14);
+      --accent: #8bd6ad;
+      --bottom-safe: env(safe-area-inset-bottom, 0px);
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body {
+      margin: 0;
+      width: 100vw;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+    .immersive-replay {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      max-width: 100vw;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      background: #050708;
+    }
+    .replay-stage {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      min-height: 0;
+    }
+    .replay-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transform: scale(1.01);
+      transition: opacity 560ms cubic-bezier(0.2, 0, 0, 1), transform 560ms cubic-bezier(0.2, 0, 0, 1);
+    }
+    .replay-layer.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .replay-top {
+      position: absolute;
+      top: max(14px, env(safe-area-inset-top, 0px));
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .pill {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.2;
+      backdrop-filter: blur(14px);
+    }
+    .replay-sheet {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      gap: 10px;
+      width: 100%;
+      max-width: 100vw;
+      min-width: 0;
+      padding: 14px 14px calc(14px + var(--bottom-safe));
+      border-top: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(9, 12, 15, 0.7), rgba(9, 12, 15, 0.94));
+      backdrop-filter: blur(16px);
+    }
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+    .trace-line {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .caption {
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+    .excerpt, .route, .local-only {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+    .progress {
+      height: 4px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+    }
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+    }
+    audio {
+      width: 100%;
+    }
+    .debug-info {
+      display: grid;
+      gap: 10px;
+      min-width: 0;
+    }
+    .p1b-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      min-width: 0;
+      width: min(100%, 362px);
+    }
+    .p1b-tab {
+      min-width: 0;
+      padding: 7px 4px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--muted);
+      font: inherit;
+      font-size: 11px;
+      line-height: 1.2;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .p1b-tab.is-active {
+      border-color: rgba(139, 214, 173, 0.72);
+      color: var(--text);
+      background: rgba(139, 214, 173, 0.14);
+    }
+    .p1b-panel {
+      display: none;
+      max-height: min(34vh, 260px);
+      overflow: auto;
+      min-width: 0;
+      width: min(100%, 362px);
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+    .p1b-panel.is-active {
+      display: grid;
+      gap: 8px;
+    }
+    .memory-card-list, .route-segment-list, .variant-list {
+      display: grid;
+      gap: 8px;
+    }
+    .memory-card, .route-segment, .variant-option {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--text);
+      padding: 9px;
+      font: inherit;
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+    .memory-card strong, .route-segment strong, .variant-option strong {
+      display: block;
+      font-size: 13px;
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+    .meta-line, .variant-text {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .media-info-grid {
+      display: grid;
+      grid-template-columns: max-content minmax(0, 1fr);
+      gap: 6px 10px;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .media-info-grid dt {
+      color: var(--muted);
+    }
+    .media-info-grid dd {
+      margin: 0;
+      color: var(--text);
+      overflow-wrap: anywhere;
+    }
+    @media (min-width: 760px) {
+      body { overflow: auto; }
+      .immersive-replay {
+        width: min(430px, 100vw);
+        margin: 0 auto;
+        box-shadow: 0 0 0 1px var(--line);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .replay-layer {
+        transition: opacity 120ms linear;
+        transform: none;
+      }
+      .replay-layer.is-active {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="immersive-replay" data-share-scope="first-cohort-preview" data-p1b-capability="structured-replay">
+    <section class="replay-stage" aria-label="Travel photo replay">
+      <img id="replay-a" class="replay-layer is-active" alt="">
+      <img id="replay-b" class="replay-layer" alt="">
+      <div class="replay-top">
+        <span class="pill">第36天</span>
+        <span class="pill local-only">first cohort</span>
+      </div>
+    </section>
+    <section class="replay-sheet">
+      <h1>第36天 旅程回放</h1>
+      <div class="trace-line">内部编号 D36</div>
+      <div class="route">贝尔格莱德 → 布达佩斯 → 维也纳</div>
+      <div class="caption" id="replay-caption">No cue</div>
+      <div class="excerpt" id="replay-excerpt"></div>
+      <div class="progress" aria-hidden="true"><div class="bar" id="replay-bar"></div></div>
+      <audio id="replay-audio" controls preload="metadata" src="narration.mp3"></audio>
+      <section id="debug-info" class="debug-info" hidden aria-label="Debug replay panels" data-debug-enable="?debug_info=true">
+        <nav class="p1b-tabs" aria-label="Structured replay panels">
+          <button type="button" class="p1b-tab is-active" data-panel="memory-card-panel">Cards</button>
+          <button type="button" class="p1b-tab" data-panel="route-segment-panel">Route</button>
+          <button type="button" class="p1b-tab" data-panel="media-info-panel">Media</button>
+          <button type="button" class="p1b-tab" data-panel="variant-selector">Variants</button>
+        </nav>
+        <section id="memory-card-panel" class="p1b-panel is-active" aria-label="Memory cards">
+          <div id="memory-card-list" class="memory-card-list"></div>
+        </section>
+        <section id="route-segment-panel" class="p1b-panel" aria-label="Route segments">
+          <div id="route-segment-list" class="route-segment-list"></div>
+        </section>
+        <section id="media-info-panel" class="p1b-panel" aria-label="Active media metadata">
+          <dl id="active-media-metadata" class="media-info-grid"></dl>
+          <dl id="active-pacing-metadata" class="media-info-grid"></dl>
+        </section>
+        <section id="variant-selector" class="p1b-panel" aria-label="Narration variants">
+          <div id="variant-list" class="variant-list"></div>
+          <article id="variant-text" class="variant-text"></article>
+        </section>
+      </section>
+    </section>
+  </main>
+  <script>
+    const cues = [{"image_path": "images/D36/summary.png", "caption": "D36 路线总览", "beat_label": "路线总览", "narration_text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。", "narration_excerpt": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。", "narration_beat": "路线总览", "match_reason": "route overview image used for the opening timeline beat", "start_sec": 0, "end_sec": 9.792, "segment_duration_sec": 9.792, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 9.792, "transition_type": "soft_crossfade", "visual_priority": 3, "narration_priority": 1, "map_focus": "Belgrade to Vienna"}, "src": "../../../images/D36/summary.png"}, {"image_path": "images/D36/postcard-1.png", "caption": "贝尔格莱德城堡与萨瓦—多瑙河汇流", "beat_label": "贝尔格莱德城堡与萨瓦—多瑙河汇流", "narration_text": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。", "narration_excerpt": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。", "narration_beat": "贝尔格莱德城堡与萨瓦—多瑙河汇流", "match_reason": "matched entry visual section for postcard-1.png", "start_sec": 9.792, "end_sec": 33.66, "segment_duration_sec": 23.868, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 23.868, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Belgrade"}, "src": "../../../images/D36/postcard-1.png"}, {"image_path": "images/D36/postcard-2.png", "caption": "彼得罗瓦拉丁要塞与多瑙河", "beat_label": "彼得罗瓦拉丁要塞与多瑙河", "narration_text": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。", "narration_excerpt": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。", "narration_beat": "彼得罗瓦拉丁要塞与多瑙河", "match_reason": "matched entry visual section for postcard-2.png", "start_sec": 33.66, "end_sec": 55.944, "segment_duration_sec": 22.284, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 22.284, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Novi Sad"}, "src": "../../../images/D36/postcard-2.png"}, {"image_path": "images/D36/postcard-3.png", "caption": "苏博蒂察市政厅", "beat_label": "苏博蒂察市政厅", "narration_text": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。", "narration_excerpt": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。", "narration_beat": "苏博蒂察市政厅", "match_reason": "matched entry visual section for postcard-3.png", "start_sec": 55.944, "end_sec": 79.344, "segment_duration_sec": 23.4, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 23.4, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Subotica"}, "src": "../../../images/D36/postcard-3.png"}, {"image_path": "images/D36/postcard-4.png", "caption": "塞格德还愿教堂与蒂萨河", "beat_label": "塞格德还愿教堂与蒂萨河", "narration_text": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。", "narration_excerpt": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。", "narration_beat": "塞格德还愿教堂与蒂萨河", "match_reason": "matched entry visual section for postcard-4.png", "start_sec": 79.344, "end_sec": 99.612, "segment_duration_sec": 20.268, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 20.268, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Szeged"}, "src": "../../../images/D36/postcard-4.png"}, {"image_path": "images/D36/postcard-5.png", "caption": "匈牙利国会大厦与链桥", "beat_label": "匈牙利国会大厦与链桥", "narration_text": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。", "narration_excerpt": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。", "narration_beat": "匈牙利国会大厦与链桥", "match_reason": "matched entry visual section for postcard-5.png", "start_sec": 99.612, "end_sec": 118.188, "segment_duration_sec": 18.576, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 18.576, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 1, "map_focus": "Budapest"}, "src": "../../../images/D36/postcard-5.png"}, {"image_path": "images/D36/postcard-6.png", "caption": "杰尔巴洛克老城", "beat_label": "杰尔巴洛克老城", "narration_text": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。", "narration_excerpt": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。", "narration_beat": "杰尔巴洛克老城", "match_reason": "matched entry visual section for postcard-6.png", "start_sec": 118.188, "end_sec": 140.904, "segment_duration_sec": 22.716, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 22.716, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Gyor"}, "src": "../../../images/D36/postcard-6.png"}, {"image_path": "images/D36/postcard-7.png", "caption": "圣斯蒂芬大教堂与维也纳环城大道", "beat_label": "圣斯蒂芬大教堂与维也纳环城大道", "narration_text": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。", "narration_excerpt": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。", "narration_beat": "圣斯蒂芬大教堂与维也纳环城大道", "match_reason": "matched entry visual section for postcard-7.png", "start_sec": 140.904, "end_sec": 163.188, "segment_duration_sec": 22.284, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 22.284, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Vienna"}, "src": "../../../images/D36/postcard-7.png"}, {"image_path": "images/D36/special-view-1.png", "caption": "高处回看路线结构", "beat_label": "路线回看", "narration_text": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。", "narration_excerpt": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。", "narration_beat": "路线回看", "match_reason": "special overview image used for the closing route beat", "start_sec": 163.188, "end_sec": 180.432, "segment_duration_sec": 17.244, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 17.244, "transition_type": "soft_crossfade", "visual_priority": 3, "narration_priority": 2, "map_focus": "Danube corridor"}, "src": "../../../images/D36/special-view-1.png"}];
+    const memoryCards = [{"card_id": "d36_overview", "day_id": "D36", "type": "overview", "title": "D36 route overview", "description": "贝尔格莱德 → 布达佩斯 → 维也纳 replay overview for local review.", "source_cue_index": 0, "source_image_path": "images/D36/summary.png", "location_label": "Belgrade to Vienna", "route_segment_id": null, "narration_hook": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。", "suggested_duration_seconds": 8, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "overview", "route"]}, {"card_id": "d36_location_belgrade", "day_id": "D36", "type": "location", "title": "Belgrade", "description": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。", "source_cue_index": 1, "source_image_path": "images/D36/postcard-1.png", "location_label": "Belgrade", "route_segment_id": null, "narration_hook": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。", "suggested_duration_seconds": 23.868, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "location", "belgrade"]}, {"card_id": "d36_location_novi_sad", "day_id": "D36", "type": "location", "title": "Novi Sad", "description": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。", "source_cue_index": 2, "source_image_path": "images/D36/postcard-2.png", "location_label": "Novi Sad", "route_segment_id": null, "narration_hook": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。", "suggested_duration_seconds": 22.284, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "location", "novi_sad"]}, {"card_id": "d36_location_subotica", "day_id": "D36", "type": "location", "title": "Subotica", "description": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。", "source_cue_index": 3, "source_image_path": "images/D36/postcard-3.png", "location_label": "Subotica", "route_segment_id": null, "narration_hook": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。", "suggested_duration_seconds": 23.4, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "location", "subotica"]}, {"card_id": "d36_location_szeged", "day_id": "D36", "type": "location", "title": "Szeged", "description": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。", "source_cue_index": 4, "source_image_path": "images/D36/postcard-4.png", "location_label": "Szeged", "route_segment_id": null, "narration_hook": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。", "suggested_duration_seconds": 20.268, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "location", "szeged"]}, {"card_id": "d36_location_budapest", "day_id": "D36", "type": "location", "title": "Budapest", "description": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。", "source_cue_index": 5, "source_image_path": "images/D36/postcard-5.png", "location_label": "Budapest", "route_segment_id": null, "narration_hook": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。", "suggested_duration_seconds": 18.576, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "location", "budapest"]}, {"card_id": "d36_location_gyor", "day_id": "D36", "type": "location", "title": "Gyor", "description": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。", "source_cue_index": 6, "source_image_path": "images/D36/postcard-6.png", "location_label": "Gyor", "route_segment_id": null, "narration_hook": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。", "suggested_duration_seconds": 22.716, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "location", "gyor"]}, {"card_id": "d36_location_vienna", "day_id": "D36", "type": "location", "title": "Vienna", "description": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。", "source_cue_index": 7, "source_image_path": "images/D36/postcard-7.png", "location_label": "Vienna", "route_segment_id": null, "narration_hook": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。", "suggested_duration_seconds": 22.284, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "location", "vienna"]}, {"card_id": "d36_belgrade_to_novi_sad_card", "day_id": "D36", "type": "route_segment", "title": "Belgrade to Novi Sad", "description": "D36 route segment 1: Belgrade to Novi Sad, derived from itinerary and visual cue order.", "source_cue_index": null, "source_image_path": null, "location_label": "Novi Sad", "route_segment_id": "d36_belgrade_to_novi_sad", "narration_hook": "The replay moves from Belgrade toward Novi Sad.", "suggested_duration_seconds": 7, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "route_segment", "belgrade", "novi_sad"]}, {"card_id": "d36_novi_sad_to_subotica_card", "day_id": "D36", "type": "route_segment", "title": "Novi Sad to Subotica", "description": "D36 route segment 2: Novi Sad to Subotica, derived from itinerary and visual cue order.", "source_cue_index": null, "source_image_path": null, "location_label": "Subotica", "route_segment_id": "d36_novi_sad_to_subotica", "narration_hook": "The replay moves from Novi Sad toward Subotica.", "suggested_duration_seconds": 7, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "route_segment", "novi_sad", "subotica"]}, {"card_id": "d36_subotica_to_szeged_card", "day_id": "D36", "type": "route_segment", "title": "Subotica to Szeged", "description": "D36 route segment 3: Subotica to Szeged, derived from itinerary and visual cue order.", "source_cue_index": null, "source_image_path": null, "location_label": "Szeged", "route_segment_id": "d36_subotica_to_szeged", "narration_hook": "The replay moves from Subotica toward Szeged.", "suggested_duration_seconds": 7, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "route_segment", "subotica", "szeged"]}, {"card_id": "d36_szeged_to_budapest_card", "day_id": "D36", "type": "route_segment", "title": "Szeged to Budapest", "description": "D36 route segment 4: Szeged to Budapest, derived from itinerary and visual cue order.", "source_cue_index": null, "source_image_path": null, "location_label": "Budapest", "route_segment_id": "d36_szeged_to_budapest", "narration_hook": "The replay moves from Szeged toward Budapest.", "suggested_duration_seconds": 7, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "route_segment", "szeged", "budapest"]}, {"card_id": "d36_budapest_to_gyor_card", "day_id": "D36", "type": "route_segment", "title": "Budapest to Gyor", "description": "D36 route segment 5: Budapest to Gyor, derived from itinerary and visual cue order.", "source_cue_index": null, "source_image_path": null, "location_label": "Gyor", "route_segment_id": "d36_budapest_to_gyor", "narration_hook": "The replay moves from Budapest toward Gyor.", "suggested_duration_seconds": 7, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "route_segment", "budapest", "gyor"]}, {"card_id": "d36_gyor_to_vienna_card", "day_id": "D36", "type": "route_segment", "title": "Gyor to Vienna", "description": "D36 route segment 6: Gyor to Vienna, derived from itinerary and visual cue order.", "source_cue_index": null, "source_image_path": null, "location_label": "Vienna", "route_segment_id": "d36_gyor_to_vienna", "narration_hook": "The replay moves from Gyor toward Vienna.", "suggested_duration_seconds": 7, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "route_segment", "gyor", "vienna"]}, {"card_id": "d36_emotion_transition", "day_id": "D36", "type": "emotion", "title": "Travel tempo shift", "description": "The replay treats the day as a route transition rather than a simple place list.", "source_cue_index": 0, "source_image_path": "images/D36/summary.png", "location_label": null, "route_segment_id": null, "narration_hook": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。", "suggested_duration_seconds": 6, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "emotion", "transition"]}, {"card_id": "d36_summary", "day_id": "D36", "type": "summary", "title": "D36 replay summary", "description": "Closing card for the route structure and local replay review.", "source_cue_index": 8, "source_image_path": "images/D36/special-view-1.png", "location_label": "Danube corridor", "route_segment_id": null, "narration_hook": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。", "suggested_duration_seconds": 8, "privacy_level": "local_private_review", "shareable": false, "tags": ["d36", "summary", "closing"]}];
+    const mediaMetadata = [{"media_id": "d36_summary", "day_id": "D36", "relative_path": "images/D36/summary.png", "role": "cover", "title": "D36 路线总览", "caption": "D36 路线总览", "location_label": "Belgrade to Vienna", "scene_type": "route_cover", "visual_description": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。", "mood": "opening_overview", "cover_candidate": true, "transition_candidate": false, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "cover", "belgrade_to_vienna"], "source_cue_index": 0}, {"media_id": "d36_postcard_1", "day_id": "D36", "relative_path": "images/D36/postcard-1.png", "role": "postcard", "title": "贝尔格莱德城堡与萨瓦—多瑙河汇流", "caption": "贝尔格莱德城堡与萨瓦—多瑙河汇流", "location_label": "Belgrade", "scene_type": "river_fortress", "visual_description": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。", "mood": "threshold", "cover_candidate": false, "transition_candidate": true, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "postcard", "belgrade"], "source_cue_index": 1}, {"media_id": "d36_postcard_2", "day_id": "D36", "relative_path": "images/D36/postcard-2.png", "role": "postcard", "title": "彼得罗瓦拉丁要塞与多瑙河", "caption": "彼得罗瓦拉丁要塞与多瑙河", "location_label": "Novi Sad", "scene_type": "danube_fortress", "visual_description": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。", "mood": "river_continuity", "cover_candidate": false, "transition_candidate": true, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "postcard", "novi_sad"], "source_cue_index": 2}, {"media_id": "d36_postcard_3", "day_id": "D36", "relative_path": "images/D36/postcard-3.png", "role": "postcard", "title": "苏博蒂察市政厅", "caption": "苏博蒂察市政厅", "location_label": "Subotica", "scene_type": "borderland_city", "visual_description": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。", "mood": "borderland_shift", "cover_candidate": false, "transition_candidate": true, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "postcard", "subotica"], "source_cue_index": 3}, {"media_id": "d36_postcard_4", "day_id": "D36", "relative_path": "images/D36/postcard-4.png", "role": "postcard", "title": "塞格德还愿教堂与蒂萨河", "caption": "塞格德还愿教堂与蒂萨河", "location_label": "Szeged", "scene_type": "river_city", "visual_description": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。", "mood": "first_hungarian_stop", "cover_candidate": false, "transition_candidate": true, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "postcard", "szeged"], "source_cue_index": 4}, {"media_id": "d36_postcard_5", "day_id": "D36", "relative_path": "images/D36/postcard-5.png", "role": "postcard", "title": "匈牙利国会大厦与链桥", "caption": "匈牙利国会大厦与链桥", "location_label": "Budapest", "scene_type": "capital_riverfront", "visual_description": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。", "mood": "capital_scale", "cover_candidate": false, "transition_candidate": true, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "postcard", "budapest"], "source_cue_index": 5}, {"media_id": "d36_postcard_6", "day_id": "D36", "relative_path": "images/D36/postcard-6.png", "role": "postcard", "title": "杰尔巴洛克老城", "caption": "杰尔巴洛克老城", "location_label": "Gyor", "scene_type": "old_town_stop", "visual_description": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。", "mood": "quiet_pause", "cover_candidate": false, "transition_candidate": true, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "postcard", "gyor"], "source_cue_index": 6}, {"media_id": "d36_postcard_7", "day_id": "D36", "relative_path": "images/D36/postcard-7.png", "role": "postcard", "title": "圣斯蒂芬大教堂与维也纳环城大道", "caption": "圣斯蒂芬大教堂与维也纳环城大道", "location_label": "Vienna", "scene_type": "arrival_city", "visual_description": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。", "mood": "arrival_closure", "cover_candidate": false, "transition_candidate": true, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "postcard", "vienna"], "source_cue_index": 7}, {"media_id": "d36_special_view_1", "day_id": "D36", "relative_path": "images/D36/special-view-1.png", "role": "route_overview", "title": "Route structure overview", "caption": "高处回看路线结构", "location_label": "Danube corridor", "scene_type": "route_structure", "visual_description": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。", "mood": "closing_reflection", "cover_candidate": false, "transition_candidate": true, "privacy_level": "local_private_review", "contains_sensitive_content": false, "tags": ["d36", "route_overview", "danube_corridor"], "source_cue_index": 8}];
+    const routeSegments = [{"segment_id": "d36_belgrade_to_novi_sad", "day_id": "D36", "from_label": "Belgrade", "to_label": "Novi Sad", "country_sequence": ["Serbia"], "transport_mode": "drive", "route_context": "D36 route segment 1: Belgrade to Novi Sad, derived from itinerary and visual cue order.", "emotional_tone": "transit_continuity", "map_animation_candidate": true, "related_media_ids": ["d36_postcard_1", "d36_postcard_2"], "related_card_ids": ["d36_location_novi_sad", "d36_belgrade_to_novi_sad_card"], "privacy_level": "local_private_review"}, {"segment_id": "d36_novi_sad_to_subotica", "day_id": "D36", "from_label": "Novi Sad", "to_label": "Subotica", "country_sequence": ["Serbia"], "transport_mode": "drive", "route_context": "D36 route segment 2: Novi Sad to Subotica, derived from itinerary and visual cue order.", "emotional_tone": "transit_continuity", "map_animation_candidate": true, "related_media_ids": ["d36_postcard_2", "d36_postcard_3"], "related_card_ids": ["d36_location_subotica", "d36_novi_sad_to_subotica_card"], "privacy_level": "local_private_review"}, {"segment_id": "d36_subotica_to_szeged", "day_id": "D36", "from_label": "Subotica", "to_label": "Szeged", "country_sequence": ["Serbia", "Hungary"], "transport_mode": "drive", "route_context": "D36 route segment 3: Subotica to Szeged, derived from itinerary and visual cue order.", "emotional_tone": "transit_continuity", "map_animation_candidate": true, "related_media_ids": ["d36_postcard_3", "d36_postcard_4"], "related_card_ids": ["d36_location_szeged", "d36_subotica_to_szeged_card"], "privacy_level": "local_private_review"}, {"segment_id": "d36_szeged_to_budapest", "day_id": "D36", "from_label": "Szeged", "to_label": "Budapest", "country_sequence": ["Hungary"], "transport_mode": "drive", "route_context": "D36 route segment 4: Szeged to Budapest, derived from itinerary and visual cue order.", "emotional_tone": "transit_continuity", "map_animation_candidate": true, "related_media_ids": ["d36_postcard_4", "d36_postcard_5"], "related_card_ids": ["d36_location_budapest", "d36_szeged_to_budapest_card"], "privacy_level": "local_private_review"}, {"segment_id": "d36_budapest_to_gyor", "day_id": "D36", "from_label": "Budapest", "to_label": "Gyor", "country_sequence": ["Hungary"], "transport_mode": "drive", "route_context": "D36 route segment 5: Budapest to Gyor, derived from itinerary and visual cue order.", "emotional_tone": "transit_continuity", "map_animation_candidate": true, "related_media_ids": ["d36_postcard_5", "d36_postcard_6"], "related_card_ids": ["d36_location_gyor", "d36_budapest_to_gyor_card"], "privacy_level": "local_private_review"}, {"segment_id": "d36_gyor_to_vienna", "day_id": "D36", "from_label": "Gyor", "to_label": "Vienna", "country_sequence": ["Hungary", "Austria"], "transport_mode": "drive", "route_context": "D36 route segment 6: Gyor to Vienna, derived from itinerary and visual cue order.", "emotional_tone": "arrival_closure", "map_animation_candidate": true, "related_media_ids": ["d36_postcard_6", "d36_postcard_7"], "related_card_ids": ["d36_location_vienna", "d36_gyor_to_vienna_card"], "privacy_level": "local_private_review"}];
+    const narrationVariants = [{"variant_id": "intro_15s", "target_duration_seconds": 15, "title": "D36 15s intro", "text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。 起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。", "intended_surface": "share_preview", "source_cards": ["d36_overview", "d36_emotion_transition"], "source_cues": [0, 1], "privacy_level": "local_private_review", "shareable": false}, {"variant_id": "replay_45s", "target_duration_seconds": 45, "title": "D36 45s replay", "text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。 起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。 从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。 河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。 跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。", "intended_surface": "mobile_replay", "source_cards": ["d36_overview", "d36_location_belgrade", "d36_location_novi_sad", "d36_location_subotica", "d36_location_szeged", "d36_location_budapest"], "source_cues": [0, 1, 2, 3, 4], "privacy_level": "local_private_review", "shareable": false}, {"variant_id": "story_90s", "target_duration_seconds": 90, "title": "D36 90s story", "text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。 起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。 从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。 河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。 跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。 抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。 离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。 最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。 最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。", "intended_surface": "full_story", "source_cards": ["d36_overview", "d36_location_belgrade", "d36_location_novi_sad", "d36_location_subotica", "d36_location_szeged", "d36_location_budapest", "d36_location_gyor", "d36_location_vienna", "d36_belgrade_to_novi_sad_card", "d36_novi_sad_to_subotica_card", "d36_subotica_to_szeged_card", "d36_szeged_to_budapest_card", "d36_budapest_to_gyor_card", "d36_gyor_to_vienna_card", "d36_emotion_transition", "d36_summary"], "source_cues": [0, 1, 2, 3, 4, 5, 6, 7, 8], "privacy_level": "local_private_review", "shareable": false}, {"variant_id": "immersive_3min", "target_duration_seconds": 180, "title": "D36 3min immersive", "text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。 起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。 从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。 河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。 跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。 抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。 离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。 最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。 最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。", "intended_surface": "immersive", "source_cards": ["d36_overview", "d36_location_belgrade", "d36_location_novi_sad", "d36_location_subotica", "d36_location_szeged", "d36_location_budapest", "d36_location_gyor", "d36_location_vienna", "d36_belgrade_to_novi_sad_card", "d36_novi_sad_to_subotica_card", "d36_subotica_to_szeged_card", "d36_szeged_to_budapest_card", "d36_budapest_to_gyor_card", "d36_gyor_to_vienna_card", "d36_emotion_transition", "d36_summary"], "source_cues": [0, 1, 2, 3, 4, 5, 6, 7, 8], "privacy_level": "local_private_review", "shareable": false}];
+    const query = new URLSearchParams(window.location.search);
+    const showDebugInfo = query.get('debug_info') === 'true';
+    const debugInfo = document.getElementById('debug-info');
+    const audio = document.getElementById('replay-audio');
+    const layers = [document.getElementById('replay-a'), document.getElementById('replay-b')];
+    const caption = document.getElementById('replay-caption');
+    const excerpt = document.getElementById('replay-excerpt');
+    const bar = document.getElementById('replay-bar');
+    const memoryCardList = document.getElementById('memory-card-list');
+    const routeSegmentList = document.getElementById('route-segment-list');
+    const activeMediaMetadata = document.getElementById('active-media-metadata');
+    const activePacingMetadata = document.getElementById('active-pacing-metadata');
+    const variantList = document.getElementById('variant-list');
+    const variantText = document.getElementById('variant-text');
+    const cache = new Map();
+    const mediaByPath = new Map(mediaMetadata.map((item) => [item.relative_path, item]));
+    const mediaByStem = new Map(mediaMetadata.map((item) => [stemOf(item.relative_path), item]));
+    let activeIndex = -1;
+    let activeLayer = 0;
+    let transitionToken = 0;
+
+    if (debugInfo) {
+      debugInfo.hidden = !showDebugInfo;
+      debugInfo.dataset.debugInfo = showDebugInfo ? 'true' : 'false';
+    }
+
+    function stemOf(path) {
+      const file = String(path || '').split('/').pop() || '';
+      return file.replace(/\.[^.]+$/, '');
+    }
+
+    function friendlyText(text) {
+      return String(text ?? '').replace(/\bD(\d+)\b/g, '\u7b2c$1\u5929');
+    }
+
+    function clearNode(node) {
+      if (!node) return;
+      while (node.firstChild) node.removeChild(node.firstChild);
+    }
+
+    function textBlock(text, className) {
+      const node = document.createElement('div');
+      node.className = className || 'meta-line';
+      node.textContent = text || '';
+      return node;
+    }
+
+    function detailRow(parent, label, value) {
+      const dt = document.createElement('dt');
+      const dd = document.createElement('dd');
+      dt.textContent = label;
+      dd.textContent = Array.isArray(value) ? value.join(', ') : String(value ?? '');
+      parent.append(dt, dd);
+    }
+
+    function setPanel(panelId) {
+      document.querySelectorAll('.p1b-tab').forEach((tab) => {
+        tab.classList.toggle('is-active', tab.dataset.panel === panelId);
+      });
+      document.querySelectorAll('.p1b-panel').forEach((panel) => {
+        panel.classList.toggle('is-active', panel.id === panelId);
+      });
+    }
+
+    function seekToCueIndex(nextIndex) {
+      if (!cues.length || !Number.isInteger(nextIndex)) return;
+      const normalized = Math.max(0, Math.min(nextIndex, cues.length - 1));
+      renderCue(normalized);
+      if (audio) {
+        audio.currentTime = cues[normalized].start_sec || 0;
+      }
+    }
+
+    function renderMemoryCards() {
+      clearNode(memoryCardList);
+      memoryCards.forEach((card) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'memory-card';
+        const title = document.createElement('strong');
+        title.textContent = friendlyText(card.title || card.card_id);
+        button.append(title);
+        button.append(textBlock((card.type || 'card') + ' · ' + (card.location_label || 'route memory')));
+        button.append(textBlock(card.narration_hook || card.description || ''));
+        button.addEventListener('click', () => seekToCueIndex(card.source_cue_index));
+        memoryCardList.append(button);
+      });
+    }
+
+    function renderRouteSegments() {
+      clearNode(routeSegmentList);
+      routeSegments.forEach((segment) => {
+        const node = document.createElement('article');
+        node.className = 'route-segment';
+        const title = document.createElement('strong');
+        title.textContent = (segment.from_label || '') + ' -> ' + (segment.to_label || '');
+        node.append(title);
+        node.append(textBlock((segment.country_sequence || []).join(' / ') + ' · ' + (segment.emotional_tone || '')));
+        node.append(textBlock(segment.route_context || ''));
+        node.append(textBlock('Media: ' + (segment.related_media_ids || []).join(', ')));
+        node.append(textBlock('Cards: ' + (segment.related_card_ids || []).join(', ')));
+        routeSegmentList.append(node);
+      });
+    }
+
+    function mediaForCue(cue) {
+      if (!cue) return null;
+      return mediaByPath.get(cue.image_path) || mediaByStem.get(stemOf(cue.image_path)) || null;
+    }
+
+    function updateActiveMediaMetadata(cue) {
+      clearNode(activeMediaMetadata);
+      clearNode(activePacingMetadata);
+      const media = mediaForCue(cue);
+      if (media) {
+        detailRow(activeMediaMetadata, 'location', media.location_label);
+        detailRow(activeMediaMetadata, 'scene', media.scene_type);
+        detailRow(activeMediaMetadata, 'mood', media.mood);
+        detailRow(activeMediaMetadata, 'privacy', media.privacy_level);
+        detailRow(activeMediaMetadata, 'cover', media.cover_candidate);
+        detailRow(activeMediaMetadata, 'transition', media.transition_candidate);
+        detailRow(activeMediaMetadata, 'tags', media.tags || []);
+      } else {
+        detailRow(activeMediaMetadata, 'media', 'metadata unavailable');
+      }
+      const pacing = cue && cue.playback_pacing ? cue.playback_pacing : {};
+      detailRow(activePacingMetadata, 'duration', pacing.suggested_duration_seconds || cue.segment_duration_sec || '');
+      detailRow(activePacingMetadata, 'transition_type', pacing.transition_type || 'soft_crossfade');
+      detailRow(activePacingMetadata, 'visual_priority', pacing.visual_priority || '');
+      detailRow(activePacingMetadata, 'narration_priority', pacing.narration_priority || '');
+      detailRow(activePacingMetadata, 'map_focus', pacing.map_focus || '');
+    }
+
+    function renderNarrationVariants() {
+      clearNode(variantList);
+      narrationVariants.forEach((variant, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'variant-option';
+        const title = document.createElement('strong');
+        title.textContent = variant.variant_id + ' · ' + variant.target_duration_seconds + 's';
+        button.append(title);
+        button.append(textBlock(variant.intended_surface || 'text variant'));
+        button.addEventListener('click', () => {
+          variantText.textContent = variant.text || '';
+        });
+        variantList.append(button);
+        if (index === 0) variantText.textContent = variant.text || '';
+      });
+    }
+
+    function cueIndexAt(time) {
+      if (!cues.length) return -1;
+      const matched = cues.findIndex((cue) => time >= cue.start_sec && time < cue.end_sec);
+      if (matched !== -1) return matched;
+      return time >= cues[cues.length - 1].end_sec ? cues.length - 1 : 0;
+    }
+
+    function preloadImage(src) {
+      if (!src) return Promise.reject(new Error('missing image'));
+      if (cache.has(src)) return cache.get(src);
+      const promise = new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(src);
+        img.onerror = reject;
+        img.src = src;
+      });
+      cache.set(src, promise);
+      return promise;
+    }
+
+    function updateText(cue) {
+      caption.textContent = friendlyText(cue.caption);
+      excerpt.textContent = friendlyText(cue.narration_excerpt || '');
+      const progressBase = audio && Number.isFinite(audio.duration) ? audio.duration : cues[cues.length - 1].end_sec;
+      const progressTime = audio ? audio.currentTime : cue.end_sec;
+      bar.style.width = `${Math.min(100, (progressTime / progressBase) * 100)}%`;
+      updateActiveMediaMetadata(cue);
+    }
+
+    async function renderCue(nextIndex) {
+      if (!cues.length) return;
+      const normalized = Math.max(0, Math.min(nextIndex, cues.length - 1));
+      const cue = cues[normalized];
+      const token = ++transitionToken;
+      if (normalized === activeIndex) {
+        updateText(cue);
+        return;
+      }
+      activeIndex = normalized;
+      updateText(cue);
+      try {
+        await preloadImage(cue.src);
+      } catch (error) {
+        return;
+      }
+      if (token !== transitionToken) return;
+      const incoming = layers[1 - activeLayer];
+      const outgoing = layers[activeLayer];
+      incoming.src = cue.src;
+      incoming.alt = friendlyText(cue.caption);
+      requestAnimationFrame(() => {
+        if (token !== transitionToken) return;
+        incoming.classList.add('is-active');
+        outgoing.classList.remove('is-active');
+        activeLayer = 1 - activeLayer;
+        preloadImage(cues[(activeIndex + 1) % cues.length].src).catch(() => undefined);
+      });
+    }
+
+    function renderInitialCue(nextIndex) {
+      if (!cues.length) return;
+      const normalized = Math.max(0, Math.min(nextIndex, cues.length - 1));
+      activeIndex = normalized;
+      const cue = cues[activeIndex];
+      layers[activeLayer].src = cue.src;
+      layers[activeLayer].alt = friendlyText(cue.caption);
+      updateText(cue);
+      preloadImage(cue.src).catch(() => undefined);
+      preloadImage(cues[(activeIndex + 1) % cues.length].src).catch(() => undefined);
+    }
+
+    function syncFromAudio() {
+      if (!audio || !cues.length) return;
+      renderCue(cueIndexAt(audio.currentTime));
+    }
+
+    if (audio) {
+      audio.addEventListener('timeupdate', syncFromAudio);
+      audio.addEventListener('seeked', syncFromAudio);
+      audio.addEventListener('loadedmetadata', syncFromAudio);
+    }
+    document.querySelectorAll('.p1b-tab').forEach((tab) => {
+      tab.addEventListener('click', () => setPanel(tab.dataset.panel));
+    });
+    if (showDebugInfo) {
+      renderMemoryCards();
+      renderRouteSegments();
+      renderNarrationVariants();
+    }
+    renderInitialCue(0);
+  </script>
+</body>
+</html>

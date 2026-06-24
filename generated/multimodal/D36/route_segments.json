@@ -1,0 +1,141 @@
+{
+  "version": "traveljournal_structured_replay_p1a_v0.5",
+  "day_id": "D36",
+  "generated_at": "2026-06-24T09:15:58Z",
+  "segments": [
+    {
+      "segment_id": "d36_belgrade_to_novi_sad",
+      "day_id": "D36",
+      "from_label": "Belgrade",
+      "to_label": "Novi Sad",
+      "country_sequence": [
+        "Serbia"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D36 route segment 1: Belgrade to Novi Sad, derived from itinerary and visual cue order.",
+      "emotional_tone": "transit_continuity",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d36_postcard_1",
+        "d36_postcard_2"
+      ],
+      "related_card_ids": [
+        "d36_location_novi_sad",
+        "d36_belgrade_to_novi_sad_card"
+      ],
+      "privacy_level": "local_private_review"
+    },
+    {
+      "segment_id": "d36_novi_sad_to_subotica",
+      "day_id": "D36",
+      "from_label": "Novi Sad",
+      "to_label": "Subotica",
+      "country_sequence": [
+        "Serbia"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D36 route segment 2: Novi Sad to Subotica, derived from itinerary and visual cue order.",
+      "emotional_tone": "transit_continuity",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d36_postcard_2",
+        "d36_postcard_3"
+      ],
+      "related_card_ids": [
+        "d36_location_subotica",
+        "d36_novi_sad_to_subotica_card"
+      ],
+      "privacy_level": "local_private_review"
+    },
+    {
+      "segment_id": "d36_subotica_to_szeged",
+      "day_id": "D36",
+      "from_label": "Subotica",
+      "to_label": "Szeged",
+      "country_sequence": [
+        "Serbia",
+        "Hungary"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D36 route segment 3: Subotica to Szeged, derived from itinerary and visual cue order.",
+      "emotional_tone": "transit_continuity",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d36_postcard_3",
+        "d36_postcard_4"
+      ],
+      "related_card_ids": [
+        "d36_location_szeged",
+        "d36_subotica_to_szeged_card"
+      ],
+      "privacy_level": "local_private_review"
+    },
+    {
+      "segment_id": "d36_szeged_to_budapest",
+      "day_id": "D36",
+      "from_label": "Szeged",
+      "to_label": "Budapest",
+      "country_sequence": [
+        "Hungary"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D36 route segment 4: Szeged to Budapest, derived from itinerary and visual cue order.",
+      "emotional_tone": "transit_continuity",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d36_postcard_4",
+        "d36_postcard_5"
+      ],
+      "related_card_ids": [
+        "d36_location_budapest",
+        "d36_szeged_to_budapest_card"
+      ],
+      "privacy_level": "local_private_review"
+    },
+    {
+      "segment_id": "d36_budapest_to_gyor",
+      "day_id": "D36",
+      "from_label": "Budapest",
+      "to_label": "Gyor",
+      "country_sequence": [
+        "Hungary"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D36 route segment 5: Budapest to Gyor, derived from itinerary and visual cue order.",
+      "emotional_tone": "transit_continuity",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d36_postcard_5",
+        "d36_postcard_6"
+      ],
+      "related_card_ids": [
+        "d36_location_gyor",
+        "d36_budapest_to_gyor_card"
+      ],
+      "privacy_level": "local_private_review"
+    },
+    {
+      "segment_id": "d36_gyor_to_vienna",
+      "day_id": "D36",
+      "from_label": "Gyor",
+      "to_label": "Vienna",
+      "country_sequence": [
+        "Hungary",
+        "Austria"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D36 route segment 6: Gyor to Vienna, derived from itinerary and visual cue order.",
+      "emotional_tone": "arrival_closure",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d36_postcard_6",
+        "d36_postcard_7"
+      ],
+      "related_card_ids": [
+        "d36_location_vienna",
+        "d36_gyor_to_vienna_card"
+      ],
+      "privacy_level": "local_private_review"
+    }
+  ]
+}

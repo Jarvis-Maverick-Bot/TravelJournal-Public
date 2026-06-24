@@ -2,7 +2,7 @@
 
 Public static mirror for manually approved TravelJournal first-cohort preview packages.
 
-Current state: waiting for Alex manual confirmation.
+Current state: D36 first-cohort preview published after Alex manual confirmation.
 
 ## Publishing Rules
 
@@ -11,6 +11,14 @@ Current state: waiting for Alex manual confirmation.
 - Do not publish routine daily local output.
 - Do not publish a day package until Alex explicitly confirms it for first-cohort sharing.
 - Generated media, narration audio, and replay pages may be included only as part of a confirmed static preview package.
+
+## Current Preview
+
+- Day: D36
+- Route: Belgrade -> Budapest -> Vienna
+- Entry point: `index.html`
+- Mobile replay: `generated/multimodal/D36/replay.html`
+- Desktop/debug player: `generated/multimodal/D36/player.html`
 
 ## Future Automation
 

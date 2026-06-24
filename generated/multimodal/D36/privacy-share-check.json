@@ -1,0 +1,27 @@
+{
+  "day_id": "D36",
+  "version": "traveljournal_d36_p0_v0.5",
+  "share_status": "local_private_review",
+  "public_share_ready": false,
+  "checked_paths": [
+    "generated/multimodal/D36/narration-script.md",
+    "generated/multimodal/D36/player.html",
+    "generated/multimodal/D36/replay.html",
+    "generated/multimodal/D36/user-feedback-template.md",
+    "generated/multimodal/D36/memory_cards.json",
+    "generated/multimodal/D36/media_metadata.json",
+    "generated/multimodal/D36/route_segments.json",
+    "generated/multimodal/D36/narration-variants.json",
+    "generated/multimodal/D36/image-prompt-plan.md",
+    "generated/multimodal/D36/uat-readiness.md",
+    "generated/multimodal/D36/uat-checklist.json",
+    "generated/multimodal/D36/first-cohort-instructions.md"
+  ],
+  "absolute_paths_found": [],
+  "secret_markers_found": [],
+  "privacy_notes": [
+    "Generated demo files are for local/private review only.",
+    "Review entry text, captions, images, and audio before any public sharing.",
+    "Do not include generated media, local images, cache files, or credentials in git."
+  ]
+}

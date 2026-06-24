@@ -1,0 +1,40 @@
+{
+  "version": "traveljournal_playback_index_v0.5",
+  "generated_at": "2026-06-24T09:15:58Z",
+  "episodes": [
+    {
+      "day_id": "D36",
+      "route": "贝尔格莱德 → 布达佩斯 → 维也纳",
+      "status": "complete",
+      "manifest_path": "generated/multimodal/D36/manifest.json",
+      "player_path": "generated/multimodal/D36/player.html",
+      "mobile_replay_path": "generated/multimodal/D36/replay.html",
+      "audio_path": "generated/multimodal/D36/narration.mp3",
+      "structured_assets": {
+        "memory_cards_path": "generated/multimodal/D36/memory_cards.json",
+        "media_metadata_path": "generated/multimodal/D36/media_metadata.json",
+        "route_segments_path": "generated/multimodal/D36/route_segments.json",
+        "narration_variants_path": "generated/multimodal/D36/narration-variants.json"
+      },
+      "image_prompt_plan_path": "generated/multimodal/D36/image-prompt-plan.md",
+      "replay_capabilities": {
+        "p1b_structured_replay": true,
+        "replay_uses_memory_cards": true,
+        "replay_uses_route_segments": true,
+        "replay_uses_media_metadata": true,
+        "replay_uses_narration_variants": true
+      },
+      "uat_readiness": {
+        "uat_readiness_path": "generated/multimodal/D36/uat-readiness.md",
+        "uat_checklist_path": "generated/multimodal/D36/uat-checklist.json",
+        "first_cohort_instructions_path": "generated/multimodal/D36/first-cohort-instructions.md"
+      },
+      "thumbnail_path": "images/D36/postcard-1.png",
+      "cue_count": 9,
+      "audio_duration_sec": 180.432,
+      "share_status": "local_private_review",
+      "public_share_ready": false,
+      "updated_at": "2026-06-24T09:15:58Z"
+    }
+  ]
+}

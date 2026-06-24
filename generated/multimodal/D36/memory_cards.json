@@ -1,0 +1,333 @@
+{
+  "version": "traveljournal_structured_replay_p1a_v0.5",
+  "day_id": "D36",
+  "generated_at": "2026-06-24T09:15:58Z",
+  "cards": [
+    {
+      "card_id": "d36_overview",
+      "day_id": "D36",
+      "type": "overview",
+      "title": "D36 route overview",
+      "description": "贝尔格莱德 → 布达佩斯 → 维也纳 replay overview for local review.",
+      "source_cue_index": 0,
+      "source_image_path": "images/D36/summary.png",
+      "location_label": "Belgrade to Vienna",
+      "route_segment_id": null,
+      "narration_hook": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。",
+      "suggested_duration_seconds": 8,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "overview",
+        "route"
+      ]
+    },
+    {
+      "card_id": "d36_location_belgrade",
+      "day_id": "D36",
+      "type": "location",
+      "title": "Belgrade",
+      "description": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。",
+      "source_cue_index": 1,
+      "source_image_path": "images/D36/postcard-1.png",
+      "location_label": "Belgrade",
+      "route_segment_id": null,
+      "narration_hook": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。",
+      "suggested_duration_seconds": 23.868,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "location",
+        "belgrade"
+      ]
+    },
+    {
+      "card_id": "d36_location_novi_sad",
+      "day_id": "D36",
+      "type": "location",
+      "title": "Novi Sad",
+      "description": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。",
+      "source_cue_index": 2,
+      "source_image_path": "images/D36/postcard-2.png",
+      "location_label": "Novi Sad",
+      "route_segment_id": null,
+      "narration_hook": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。",
+      "suggested_duration_seconds": 22.284,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "location",
+        "novi_sad"
+      ]
+    },
+    {
+      "card_id": "d36_location_subotica",
+      "day_id": "D36",
+      "type": "location",
+      "title": "Subotica",
+      "description": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。",
+      "source_cue_index": 3,
+      "source_image_path": "images/D36/postcard-3.png",
+      "location_label": "Subotica",
+      "route_segment_id": null,
+      "narration_hook": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。",
+      "suggested_duration_seconds": 23.4,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "location",
+        "subotica"
+      ]
+    },
+    {
+      "card_id": "d36_location_szeged",
+      "day_id": "D36",
+      "type": "location",
+      "title": "Szeged",
+      "description": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。",
+      "source_cue_index": 4,
+      "source_image_path": "images/D36/postcard-4.png",
+      "location_label": "Szeged",
+      "route_segment_id": null,
+      "narration_hook": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。",
+      "suggested_duration_seconds": 20.268,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "location",
+        "szeged"
+      ]
+    },
+    {
+      "card_id": "d36_location_budapest",
+      "day_id": "D36",
+      "type": "location",
+      "title": "Budapest",
+      "description": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。",
+      "source_cue_index": 5,
+      "source_image_path": "images/D36/postcard-5.png",
+      "location_label": "Budapest",
+      "route_segment_id": null,
+      "narration_hook": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。",
+      "suggested_duration_seconds": 18.576,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "location",
+        "budapest"
+      ]
+    },
+    {
+      "card_id": "d36_location_gyor",
+      "day_id": "D36",
+      "type": "location",
+      "title": "Gyor",
+      "description": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。",
+      "source_cue_index": 6,
+      "source_image_path": "images/D36/postcard-6.png",
+      "location_label": "Gyor",
+      "route_segment_id": null,
+      "narration_hook": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。",
+      "suggested_duration_seconds": 22.716,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "location",
+        "gyor"
+      ]
+    },
+    {
+      "card_id": "d36_location_vienna",
+      "day_id": "D36",
+      "type": "location",
+      "title": "Vienna",
+      "description": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。",
+      "source_cue_index": 7,
+      "source_image_path": "images/D36/postcard-7.png",
+      "location_label": "Vienna",
+      "route_segment_id": null,
+      "narration_hook": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。",
+      "suggested_duration_seconds": 22.284,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "location",
+        "vienna"
+      ]
+    },
+    {
+      "card_id": "d36_belgrade_to_novi_sad_card",
+      "day_id": "D36",
+      "type": "route_segment",
+      "title": "Belgrade to Novi Sad",
+      "description": "D36 route segment 1: Belgrade to Novi Sad, derived from itinerary and visual cue order.",
+      "source_cue_index": null,
+      "source_image_path": null,
+      "location_label": "Novi Sad",
+      "route_segment_id": "d36_belgrade_to_novi_sad",
+      "narration_hook": "The replay moves from Belgrade toward Novi Sad.",
+      "suggested_duration_seconds": 7,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "route_segment",
+        "belgrade",
+        "novi_sad"
+      ]
+    },
+    {
+      "card_id": "d36_novi_sad_to_subotica_card",
+      "day_id": "D36",
+      "type": "route_segment",
+      "title": "Novi Sad to Subotica",
+      "description": "D36 route segment 2: Novi Sad to Subotica, derived from itinerary and visual cue order.",
+      "source_cue_index": null,
+      "source_image_path": null,
+      "location_label": "Subotica",
+      "route_segment_id": "d36_novi_sad_to_subotica",
+      "narration_hook": "The replay moves from Novi Sad toward Subotica.",
+      "suggested_duration_seconds": 7,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "route_segment",
+        "novi_sad",
+        "subotica"
+      ]
+    },
+    {
+      "card_id": "d36_subotica_to_szeged_card",
+      "day_id": "D36",
+      "type": "route_segment",
+      "title": "Subotica to Szeged",
+      "description": "D36 route segment 3: Subotica to Szeged, derived from itinerary and visual cue order.",
+      "source_cue_index": null,
+      "source_image_path": null,
+      "location_label": "Szeged",
+      "route_segment_id": "d36_subotica_to_szeged",
+      "narration_hook": "The replay moves from Subotica toward Szeged.",
+      "suggested_duration_seconds": 7,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "route_segment",
+        "subotica",
+        "szeged"
+      ]
+    },
+    {
+      "card_id": "d36_szeged_to_budapest_card",
+      "day_id": "D36",
+      "type": "route_segment",
+      "title": "Szeged to Budapest",
+      "description": "D36 route segment 4: Szeged to Budapest, derived from itinerary and visual cue order.",
+      "source_cue_index": null,
+      "source_image_path": null,
+      "location_label": "Budapest",
+      "route_segment_id": "d36_szeged_to_budapest",
+      "narration_hook": "The replay moves from Szeged toward Budapest.",
+      "suggested_duration_seconds": 7,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "route_segment",
+        "szeged",
+        "budapest"
+      ]
+    },
+    {
+      "card_id": "d36_budapest_to_gyor_card",
+      "day_id": "D36",
+      "type": "route_segment",
+      "title": "Budapest to Gyor",
+      "description": "D36 route segment 5: Budapest to Gyor, derived from itinerary and visual cue order.",
+      "source_cue_index": null,
+      "source_image_path": null,
+      "location_label": "Gyor",
+      "route_segment_id": "d36_budapest_to_gyor",
+      "narration_hook": "The replay moves from Budapest toward Gyor.",
+      "suggested_duration_seconds": 7,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "route_segment",
+        "budapest",
+        "gyor"
+      ]
+    },
+    {
+      "card_id": "d36_gyor_to_vienna_card",
+      "day_id": "D36",
+      "type": "route_segment",
+      "title": "Gyor to Vienna",
+      "description": "D36 route segment 6: Gyor to Vienna, derived from itinerary and visual cue order.",
+      "source_cue_index": null,
+      "source_image_path": null,
+      "location_label": "Vienna",
+      "route_segment_id": "d36_gyor_to_vienna",
+      "narration_hook": "The replay moves from Gyor toward Vienna.",
+      "suggested_duration_seconds": 7,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "route_segment",
+        "gyor",
+        "vienna"
+      ]
+    },
+    {
+      "card_id": "d36_emotion_transition",
+      "day_id": "D36",
+      "type": "emotion",
+      "title": "Travel tempo shift",
+      "description": "The replay treats the day as a route transition rather than a simple place list.",
+      "source_cue_index": 0,
+      "source_image_path": "images/D36/summary.png",
+      "location_label": null,
+      "route_segment_id": null,
+      "narration_hook": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。",
+      "suggested_duration_seconds": 6,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "emotion",
+        "transition"
+      ]
+    },
+    {
+      "card_id": "d36_summary",
+      "day_id": "D36",
+      "type": "summary",
+      "title": "D36 replay summary",
+      "description": "Closing card for the route structure and local replay review.",
+      "source_cue_index": 8,
+      "source_image_path": "images/D36/special-view-1.png",
+      "location_label": "Danube corridor",
+      "route_segment_id": null,
+      "narration_hook": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。",
+      "suggested_duration_seconds": 8,
+      "privacy_level": "local_private_review",
+      "shareable": false,
+      "tags": [
+        "d36",
+        "summary",
+        "closing"
+      ]
+    }
+  ]
+}

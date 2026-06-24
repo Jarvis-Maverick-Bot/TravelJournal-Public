@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D36 TravelJournal Player</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #101418;
+      --panel: #171d23;
+      --text: #eef4f8;
+      --muted: #9db0bc;
+      --line: #2c3740;
+      --accent: #77c7a1;
+      --accent-2: #e7b86f;
+      --visual-aspect: 941 / 1672;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    main {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 28px 0 32px;
+    }
+    header {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+    .route, .meta, .caption, .excerpt {
+      color: var(--muted);
+    }
+    .stage {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: minmax(280px, 520px) minmax(280px, 1fr);
+      align-items: start;
+      justify-content: center;
+    }
+    .viewer, .side {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    .viewer {
+      overflow: hidden;
+    }
+    .image-frame {
+      position: relative;
+      width: min(100%, 520px);
+      max-height: min(78vh, 820px);
+      margin: 0 auto;
+      aspect-ratio: var(--visual-aspect);
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: #0a0d10;
+    }
+    .visual-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      opacity: 0;
+      transform: scale(1.012);
+      transition: opacity 560ms cubic-bezier(0.2, 0, 0, 1), transform 560ms cubic-bezier(0.2, 0, 0, 1);
+      will-change: opacity, transform;
+    }
+    .visual-layer.is-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .empty {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      color: var(--muted);
+      text-align: center;
+      pointer-events: none;
+    }
+    .empty.is-hidden {
+      display: none;
+    }
+    .image-load-error {
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: rgba(16, 20, 24, 0.78);
+      color: var(--accent-2);
+      font-size: 13px;
+      line-height: 1.4;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .image-load-error:not(:empty) {
+      opacity: 1;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    button {
+      min-width: 40px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #202932;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover { border-color: var(--accent); }
+    .progress {
+      flex: 1;
+      height: 8px;
+      border-radius: 999px;
+      background: #2a333b;
+      overflow: hidden;
+    }
+    .bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+    .details {
+      display: grid;
+      gap: 6px;
+      padding: 12px;
+      min-height: 116px;
+      line-height: 1.5;
+    }
+    .excerpt {
+      font-size: 14px;
+    }
+    .cue-note {
+      font-size: 13px;
+      color: var(--accent-2);
+    }
+    .side {
+      padding: 16px;
+      display: grid;
+      gap: 16px;
+    }
+    audio { width: 100%; }
+    .audio-missing {
+      padding: 12px;
+      border: 1px dashed var(--line);
+      border-radius: 6px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    a { color: var(--accent); }
+    @media (max-width: 820px) {
+      .stage { grid-template-columns: 1fr; }
+      main { width: min(100vw - 20px, 1120px); padding-top: 18px; }
+      .image-frame { width: 100%; max-height: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .visual-layer {
+        transition: opacity 120ms linear;
+        transform: none;
+      }
+      .visual-layer.is-active {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>D36</h1>
+      <div class="route">贝尔格莱德 → 布达佩斯 → 维也纳</div>
+    </header>
+    <section class="stage">
+      <div class="viewer">
+        <div class="image-frame" id="frame">
+          <img id="visual-a" class="visual-layer is-active" alt="">
+          <img id="visual-b" class="visual-layer" alt="">
+          <div class="empty" id="empty">没有可轮播的本地图片。</div>
+          <div class="image-load-error" id="imageLoadError" role="status" aria-live="polite"></div>
+        </div>
+        <div class="controls">
+          <button id="prev" type="button" aria-label="Previous image">‹</button>
+          <button id="next" type="button" aria-label="Next image">›</button>
+          <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+          <span class="meta" id="count">0 / 0</span>
+        </div>
+        <div class="details">
+          <strong id="caption">No image</strong>
+          <span class="cue-note" id="beat"></span>
+          <span class="excerpt" id="excerpt"></span>
+        </div>
+      </div>
+      <aside class="side">
+        <div>
+          <strong>Audio</strong>
+          <audio id="narration-audio" controls preload="metadata" src="narration.mp3"></audio>
+        </div>
+        <div>
+          <strong>Source</strong>
+          <div class="meta"><a href="../../../entries/2026-06-21-D36.md">Open source entry</a></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <script>
+    const cues = [{"image_path": "images/D36/summary.png", "caption": "D36 路线总览", "beat_label": "路线总览", "narration_text": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。", "narration_excerpt": "从贝尔格莱德出发，D36 的路线不是一串机械坐标，而是经布达佩斯，抵达维也纳的一段旅行转场。", "narration_beat": "路线总览", "match_reason": "route overview image used for the opening timeline beat", "start_sec": 0, "end_sec": 9.792, "segment_duration_sec": 9.792, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 9.792, "transition_type": "soft_crossfade", "visual_priority": 3, "narration_priority": 1, "map_focus": "Belgrade to Vienna"}, "src": "../../../images/D36/summary.png"}, {"image_path": "images/D36/postcard-1.png", "caption": "贝尔格莱德城堡与萨瓦—多瑙河汇流", "beat_label": "贝尔格莱德城堡与萨瓦—多瑙河汇流", "narration_text": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。", "narration_excerpt": "起点先落在贝尔格莱德城堡与萨瓦—多瑙河汇流，两条河把贝尔格莱德的门槛感立起来。贝尔格莱德城堡把 D36 的起点固定在两条大河交汇处。萨瓦河、多瑙河、要塞高地和城市天际线一起出现，说明路线从巴尔干陆桥接入多瑙河走廊。", "narration_beat": "贝尔格莱德城堡与萨瓦—多瑙河汇流", "match_reason": "matched entry visual section for postcard-1.png", "start_sec": 9.792, "end_sec": 33.66, "segment_duration_sec": 23.868, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 23.868, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Belgrade"}, "src": "../../../images/D36/postcard-1.png"}, {"image_path": "images/D36/postcard-2.png", "caption": "彼得罗瓦拉丁要塞与多瑙河", "beat_label": "彼得罗瓦拉丁要塞与多瑙河", "narration_text": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。", "narration_excerpt": "从贝尔格莱德继续沿着多瑙河北上，彼得罗瓦拉丁要塞与多瑙河把水路和旧防线接到下一段。Petrovaradin Fortress 是塞尔维亚北上段最醒目的河岸要塞。钟楼、城墙和多瑙河弯道让这一天的走向继续沿着水路与旧防线展开。", "narration_beat": "彼得罗瓦拉丁要塞与多瑙河", "match_reason": "matched entry visual section for postcard-2.png", "start_sec": 33.66, "end_sec": 55.944, "segment_duration_sec": 22.284, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 22.284, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Novi Sad"}, "src": "../../../images/D36/postcard-2.png"}, {"image_path": "images/D36/postcard-3.png", "caption": "苏博蒂察市政厅", "beat_label": "苏博蒂察市政厅", "narration_text": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。", "narration_excerpt": "河岸之后，路线转向边境地带的城市立面，苏博蒂察市政厅把文化混合感推到眼前。Subotica 的市政厅把边境地带的文化混合感变得可见。匈牙利分离派建筑、彩色屋顶和广场尺度，让塞尔维亚段在进入匈牙利前多了一层中欧预告。", "narration_beat": "苏博蒂察市政厅", "match_reason": "matched entry visual section for postcard-3.png", "start_sec": 55.944, "end_sec": 79.344, "segment_duration_sec": 23.4, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 23.4, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Subotica"}, "src": "../../../images/D36/postcard-3.png"}, {"image_path": "images/D36/postcard-4.png", "caption": "塞格德还愿教堂与蒂萨河", "beat_label": "塞格德还愿教堂与蒂萨河", "narration_text": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。", "narration_excerpt": "跨入匈牙利一侧，塞格德还愿教堂与蒂萨河让叙事从边境预告进入第一座河城。Szeged 是进入匈牙利后的第一处强节点。Tisza River、教堂双塔和河城空间，让塞尔维亚 → 匈牙利的转换不只停留在边境线上。", "narration_beat": "塞格德还愿教堂与蒂萨河", "match_reason": "matched entry visual section for postcard-4.png", "start_sec": 79.344, "end_sec": 99.612, "segment_duration_sec": 20.268, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 20.268, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Szeged"}, "src": "../../../images/D36/postcard-4.png"}, {"image_path": "images/D36/postcard-5.png", "caption": "匈牙利国会大厦与链桥", "beat_label": "匈牙利国会大厦与链桥", "narration_text": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。", "narration_excerpt": "抵达布达佩斯时，匈牙利国会大厦与链桥把中欧首都的尺度一下打开。布达佩斯把 D36 的中段推到多瑙河核心。国会大厦、链桥和河面灯影，让这一天的中欧城市尺度清晰放大。", "narration_beat": "匈牙利国会大厦与链桥", "match_reason": "matched entry visual section for postcard-5.png", "start_sec": 99.612, "end_sec": 118.188, "segment_duration_sec": 18.576, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 18.576, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 1, "map_focus": "Budapest"}, "src": "../../../images/D36/postcard-5.png"}, {"image_path": "images/D36/postcard-6.png", "caption": "杰尔巴洛克老城", "beat_label": "杰尔巴洛克老城", "narration_text": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。", "narration_excerpt": "离开首都之后，节奏短暂收进高速推进中的停顿，杰尔巴洛克老城保留了商路城镇的细节。Győr 位于布达佩斯与维也纳之间，是这条路线上的小型历史停顿。巴洛克立面、教堂塔和旧城广场，让高速推进之间保留了商路城镇的细节。", "narration_beat": "杰尔巴洛克老城", "match_reason": "matched entry visual section for postcard-6.png", "start_sec": 118.188, "end_sec": 140.904, "segment_duration_sec": 22.716, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 22.716, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Gyor"}, "src": "../../../images/D36/postcard-6.png"}, {"image_path": "images/D36/postcard-7.png", "caption": "圣斯蒂芬大教堂与维也纳环城大道", "beat_label": "圣斯蒂芬大教堂与维也纳环城大道", "narration_text": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。", "narration_excerpt": "最后一段接近维也纳，圣斯蒂芬大教堂与维也纳环城大道把全天路线收束到更成熟的城市骨架里。维也纳是 D36 的终点。圣斯蒂芬大教堂的尖塔、彩色屋面和环城大道的城市骨架，把多瑙河走廊的一天收束到中欧核心城市。", "narration_beat": "圣斯蒂芬大教堂与维也纳环城大道", "match_reason": "matched entry visual section for postcard-7.png", "start_sec": 140.904, "end_sec": 163.188, "segment_duration_sec": 22.284, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 22.284, "transition_type": "soft_crossfade", "visual_priority": 2, "narration_priority": 2, "map_focus": "Vienna"}, "src": "../../../images/D36/postcard-7.png"}, {"image_path": "images/D36/special-view-1.png", "caption": "高处回看路线结构", "beat_label": "路线回看", "narration_text": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。", "narration_excerpt": "最后抵达维也纳，这一天的意义就清楚了：沿多瑙河走廊进入中欧。对 Terra Magna Traverse 来说，D36 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。", "narration_beat": "路线回看", "match_reason": "special overview image used for the closing route beat", "start_sec": 163.188, "end_sec": 180.432, "segment_duration_sec": 17.244, "timing_source": "measured_segment_audio", "playback_pacing": {"suggested_duration_seconds": 17.244, "transition_type": "soft_crossfade", "visual_priority": 3, "narration_priority": 2, "map_focus": "Danube corridor"}, "src": "../../../images/D36/special-view-1.png"}];
+    const audio = document.getElementById('narration-audio');
+    const frame = document.getElementById('frame');
+    const empty = document.getElementById('empty');
+    const visualLayers = [document.getElementById('visual-a'), document.getElementById('visual-b')];
+    const imageLoadError = document.getElementById('imageLoadError');
+    const caption = document.getElementById('caption');
+    const beat = document.getElementById('beat');
+    const excerpt = document.getElementById('excerpt');
+    const count = document.getElementById('count');
+    const bar = document.getElementById('bar');
+    const imagePreloadCache = new Map();
+    let activeIndex = -1;
+    let activeLayer = 0;
+    let transitionToken = 0;
+
+    function cueIndexAt(time) {
+      if (!cues.length) return -1;
+      const matched = cues.findIndex((cue) => time >= cue.start_sec && time < cue.end_sec);
+      if (matched !== -1) return matched;
+      return time >= cues[cues.length - 1].end_sec ? cues.length - 1 : 0;
+    }
+
+    function preloadImage(src) {
+      if (!src) return Promise.reject(new Error('missing image source'));
+      if (imagePreloadCache.has(src)) return imagePreloadCache.get(src);
+      const promise = new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(src);
+        img.onerror = () => reject(new Error(`Unable to preload image: ${src}`));
+        img.src = src;
+      });
+      imagePreloadCache.set(src, promise);
+      return promise;
+    }
+
+    function preloadNextCue(index) {
+      if (!cues.length) return;
+      const nextCue = cues[(index + 1) % cues.length];
+      preloadImage(nextCue.src).catch(() => undefined);
+    }
+
+    function updateCueText(cue) {
+      caption.textContent = cue.caption;
+      beat.textContent = `${cue.beat_label} · ${cue.start_sec}s-${cue.end_sec}s`;
+      excerpt.textContent = cue.narration_excerpt || '';
+      count.textContent = `${activeIndex + 1} / ${cues.length}`;
+    }
+
+    function updateProgress(cue) {
+      const progressBase = audio && Number.isFinite(audio.duration) ? audio.duration : cues[cues.length - 1].end_sec;
+      const progressTime = audio ? audio.currentTime : cue.end_sec;
+      const width = progressBase > 0 ? Math.min(100, (progressTime / progressBase) * 100) : 0;
+      bar.style.width = `${width}%`;
+    }
+
+    async function renderCue(nextIndex) {
+      if (!cues.length) return;
+      const normalized = Math.max(0, Math.min(nextIndex, cues.length - 1));
+      const cue = cues[normalized];
+      const token = ++transitionToken;
+      if (normalized === activeIndex) {
+        updateCueText(cue);
+        updateProgress(cue);
+        preloadNextCue(normalized);
+        return;
+      }
+      activeIndex = normalized;
+      updateCueText(cue);
+      updateProgress(cue);
+      imageLoadError.textContent = '';
+      empty.classList.add('is-hidden');
+
+      try {
+        await preloadImage(cue.src);
+      } catch (error) {
+        if (token !== transitionToken) return;
+        imageLoadError.textContent = '图片预加载失败，已保留当前画面并继续同步旁白。';
+        preloadNextCue(activeIndex);
+        return;
+      }
+      if (token !== transitionToken) return;
+
+      const incomingLayer = visualLayers[1 - activeLayer];
+      const outgoingLayer = visualLayers[activeLayer];
+      incomingLayer.src = cue.src;
+      incomingLayer.alt = cue.caption;
+      requestAnimationFrame(() => {
+        if (token !== transitionToken) return;
+        incomingLayer.classList.add('is-active');
+        outgoingLayer.classList.remove('is-active');
+        activeLayer = 1 - activeLayer;
+        preloadNextCue(activeIndex);
+      });
+    }
+
+    function renderInitialCue(nextIndex) {
+      if (!cues.length) return;
+      const normalized = Math.max(0, Math.min(nextIndex, cues.length - 1));
+      activeIndex = normalized;
+      const cue = cues[activeIndex];
+      visualLayers[activeLayer].src = cue.src;
+      visualLayers[activeLayer].alt = cue.caption;
+      empty.classList.add('is-hidden');
+      updateCueText(cue);
+      updateProgress(cue);
+      preloadImage(cue.src).catch(() => {
+        imageLoadError.textContent = '图片加载失败，请检查本地图片路径。';
+      });
+      preloadNextCue(activeIndex);
+    }
+
+    function syncFromAudio() {
+      if (!audio || !cues.length) return;
+      renderCue(cueIndexAt(audio.currentTime));
+    }
+
+    function seekToCue(nextIndex) {
+      if (!cues.length) return;
+      const normalized = (nextIndex + cues.length) % cues.length;
+      renderCue(normalized);
+      if (audio) {
+        audio.currentTime = cues[normalized].start_sec;
+      }
+    }
+
+    document.getElementById('prev').addEventListener('click', () => seekToCue(activeIndex - 1));
+    document.getElementById('next').addEventListener('click', () => seekToCue(activeIndex + 1));
+    if (audio) {
+      audio.addEventListener('timeupdate', syncFromAudio);
+      audio.addEventListener('seeked', syncFromAudio);
+      audio.addEventListener('loadedmetadata', syncFromAudio);
+      audio.addEventListener('play', syncFromAudio);
+      audio.addEventListener('pause', syncFromAudio);
+    }
+
+    renderInitialCue(0);
+  </script>
+</body>
+</html>

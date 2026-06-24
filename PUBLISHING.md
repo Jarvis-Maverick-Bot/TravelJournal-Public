@@ -2,7 +2,7 @@
 
 ## Manual Gate
 
-Current first-cohort publishing is manual-gated.
+First-cohort publishing is manual-gated.
 
 Required publish signal:
 
@@ -10,7 +10,9 @@ Required publish signal:
 PUBLISH_FIRST_COHORT_STATIC
 ```
 
-Until that signal is given, this public repository must keep the placeholder page and must not expose the generated D36 replay package.
+The D36 first-cohort package was published after Alex provided this signal on 2026-06-24.
+
+Future day packages still require the same explicit publish signal unless the daily cron publish gate is separately enabled.
 
 ## Allowed Content
 
