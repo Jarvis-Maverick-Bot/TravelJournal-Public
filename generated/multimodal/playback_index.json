@@ -63,7 +63,7 @@
         "uat_checklist_path": "generated/multimodal/D40/uat-checklist.json",
         "public_publication_instructions_path": "generated/multimodal/D40/public-publication-instructions.md"
       },
-      "thumbnail_path": "images/D40/postcard-1.png",
+      "thumbnail_path": "images/D40/postcard-1.jpg",
       "cue_count": 9,
       "audio_duration_sec": 183.564,
       "share_status": "local_private_review",

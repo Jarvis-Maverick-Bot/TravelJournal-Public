@@ -3,15 +3,15 @@
   "route": "里昂 → 日内瓦 → 米兰 → 威尼斯",
   "entry_path": "entries/2026-06-25-D40.md",
   "image_paths": [
-    "images/D40/postcard-1.png",
-    "images/D40/postcard-2.png",
-    "images/D40/postcard-3.png",
-    "images/D40/postcard-4.png",
-    "images/D40/postcard-5.png",
-    "images/D40/postcard-6.png",
-    "images/D40/postcard-7.png",
-    "images/D40/special-view-1.png",
-    "images/D40/summary.png"
+    "images/D40/postcard-1.jpg",
+    "images/D40/postcard-2.jpg",
+    "images/D40/postcard-3.jpg",
+    "images/D40/postcard-4.jpg",
+    "images/D40/postcard-5.jpg",
+    "images/D40/postcard-6.jpg",
+    "images/D40/postcard-7.jpg",
+    "images/D40/special-view-1.jpg",
+    "images/D40/summary.jpg"
   ],
   "narration_script_path": "generated/multimodal/D40/narration-script.md",
   "audio_path": "generated/multimodal/D40/narration.mp3",
@@ -39,7 +39,7 @@
   "cue_map_version": "audio_timeline_v0.1",
   "cue_map": [
     {
-      "image_path": "images/D40/summary.png",
+      "image_path": "images/D40/summary.jpg",
       "caption": "D40 路线总览",
       "beat_label": "路线总览",
       "narration_text": "从里昂出发，D40 的路线不是一串机械坐标，而是经日内瓦、米兰，抵达威尼斯的一段旅行转场。",
@@ -59,13 +59,13 @@
       }
     },
     {
-      "image_path": "images/D40/postcard-1.png",
+      "image_path": "images/D40/postcard-1.jpg",
       "caption": "里昂富维耶山与旧城出发",
       "beat_label": "里昂富维耶山与旧城出发",
       "narration_text": "路线推进到里昂富维耶山与旧城出发时，画面的重心也跟着改变。里昂从索恩河、旧城屋顶和 Fourviere 山的层次里开启 D40。河流交汇、坡地建筑和城市盆地，让今天的路线先有一个清晰的法国东南部内陆枢纽起点。",
       "narration_excerpt": "路线推进到里昂富维耶山与旧城出发时，画面的重心也跟着改变。里昂从索恩河、旧城屋顶和 Fourviere 山的层次里开启 D40。河流交汇、坡地建筑和城市盆地，让今天的路线先有一个清晰的法国东南部内陆枢纽起点。",
       "narration_beat": "里昂富维耶山与旧城出发",
-      "match_reason": "matched entry visual section for postcard-1.png",
+      "match_reason": "matched entry visual section for postcard-1.jpg",
       "start_sec": 9.864,
       "end_sec": 32.148,
       "segment_duration_sec": 22.284,
@@ -79,13 +79,13 @@
       }
     },
     {
-      "image_path": "images/D40/postcard-2.png",
+      "image_path": "images/D40/postcard-2.jpg",
       "caption": "热克斯地区—日内瓦边境走廊",
       "beat_label": "热克斯地区—日内瓦边境走廊",
       "narration_text": "下一处热克斯地区—日内瓦边境走廊不是简单的地点切换，而是当天节奏的一次换挡。Pays de Gex 到日内瓦一带标记法国 → 瑞士的国境转换。丘陵、湖盆、道路标识和边境城镇连续出现，让国家转换呈现为阿尔卑斯前地的地理与城市秩序变化。",
       "narration_excerpt": "下一处热克斯地区—日内瓦边境走廊不是简单的地点切换，而是当天节奏的一次换挡。Pays de Gex 到日内瓦一带标记法国 → 瑞士的国境转换。丘陵、湖盆、道路标识和边境城镇连续出现，让国家转换呈现为阿尔卑斯前地的地理与城市秩序变化。",
       "narration_beat": "热克斯地区—日内瓦边境走廊",
-      "match_reason": "matched entry visual section for postcard-2.png",
+      "match_reason": "matched entry visual section for postcard-2.jpg",
       "start_sec": 32.148,
       "end_sec": 56.196,
       "segment_duration_sec": 24.048,
@@ -99,13 +99,13 @@
       }
     },
     {
-      "image_path": "images/D40/postcard-3.png",
+      "image_path": "images/D40/postcard-3.jpg",
       "caption": "莱芒湖与日内瓦大喷泉",
       "beat_label": "莱芒湖与日内瓦大喷泉",
       "narration_text": "来到莱芒湖与日内瓦大喷泉，道路、建筑和河流关系开始给出新的提示。日内瓦把路线放在湖、城市和山之间。Jet d'Eau、莱芒湖港口、屋顶和远山共同构成瑞士段的视觉锚点，也把外交城市、湖畔生活和阿尔卑斯边缘连在一起。",
       "narration_excerpt": "来到莱芒湖与日内瓦大喷泉，道路、建筑和河流关系开始给出新的提示。日内瓦把路线放在湖、城市和山之间。Jet d'Eau、莱芒湖港口、屋顶和远山共同构成瑞士段的视觉锚点，也把外交城市、湖畔生活和阿尔卑斯边缘连在一起。",
       "narration_beat": "莱芒湖与日内瓦大喷泉",
-      "match_reason": "matched entry visual section for postcard-3.png",
+      "match_reason": "matched entry visual section for postcard-3.jpg",
       "start_sec": 56.196,
       "end_sec": 79.668,
       "segment_duration_sec": 23.472,
@@ -119,13 +119,13 @@
       }
     },
     {
-      "image_path": "images/D40/postcard-4.png",
+      "image_path": "images/D40/postcard-4.jpg",
       "caption": "勃朗峰方向阿尔卑斯接近段",
       "beat_label": "勃朗峰方向阿尔卑斯接近段",
       "narration_text": "路线推进到勃朗峰方向阿尔卑斯接近段时，画面的重心也跟着改变。阿尔卑斯段是 D40 的地貌高点。山谷、道路、村镇和雪峰把路线压进更陡峭的空间，交通工程与山体尺度在这里同时变得可见。",
       "narration_excerpt": "路线推进到勃朗峰方向阿尔卑斯接近段时，画面的重心也跟着改变。阿尔卑斯段是 D40 的地貌高点。山谷、道路、村镇和雪峰把路线压进更陡峭的空间，交通工程与山体尺度在这里同时变得可见。",
       "narration_beat": "勃朗峰方向阿尔卑斯接近段",
-      "match_reason": "matched entry visual section for postcard-4.png",
+      "match_reason": "matched entry visual section for postcard-4.jpg",
       "start_sec": 79.668,
       "end_sec": 100.044,
       "segment_duration_sec": 20.376,
@@ -139,13 +139,13 @@
       }
     },
     {
-      "image_path": "images/D40/postcard-5.png",
+      "image_path": "images/D40/postcard-5.jpg",
       "caption": "奥斯塔谷地抵达意大利",
       "beat_label": "奥斯塔谷地抵达意大利",
       "narration_text": "下一处奥斯塔谷地抵达意大利不是简单的地点切换，而是当天节奏的一次换挡。奥斯塔谷地让意大利段从山墙之间展开。石村、梯田、葡萄园、谷地道路和远山共同呈现出罗马—阿尔卑斯交通廊道的历史质感。",
       "narration_excerpt": "下一处奥斯塔谷地抵达意大利不是简单的地点切换，而是当天节奏的一次换挡。奥斯塔谷地让意大利段从山墙之间展开。石村、梯田、葡萄园、谷地道路和远山共同呈现出罗马—阿尔卑斯交通廊道的历史质感。",
       "narration_beat": "奥斯塔谷地抵达意大利",
-      "match_reason": "matched entry visual section for postcard-5.png",
+      "match_reason": "matched entry visual section for postcard-5.jpg",
       "start_sec": 100.044,
       "end_sec": 121.536,
       "segment_duration_sec": 21.492,
@@ -159,13 +159,13 @@
       }
     },
     {
-      "image_path": "images/D40/postcard-6.png",
+      "image_path": "images/D40/postcard-6.jpg",
       "caption": "米兰大教堂与商业核心",
       "beat_label": "米兰大教堂与商业核心",
       "narration_text": "来到米兰大教堂与商业核心，道路、建筑和河流关系开始给出新的提示。米兰把 D40 接入波河平原的商业城市带。Duomo、Galleria、广场边缘和城市屋顶，让北意大利的金融、制造、时尚与交通网络在同一个节点上显形。",
       "narration_excerpt": "来到米兰大教堂与商业核心，道路、建筑和河流关系开始给出新的提示。米兰把 D40 接入波河平原的商业城市带。Duomo、Galleria、广场边缘和城市屋顶，让北意大利的金融、制造、时尚与交通网络在同一个节点上显形。",
       "narration_beat": "米兰大教堂与商业核心",
-      "match_reason": "matched entry visual section for postcard-6.png",
+      "match_reason": "matched entry visual section for postcard-6.jpg",
       "start_sec": 121.536,
       "end_sec": 143.82,
       "segment_duration_sec": 22.284,
@@ -179,13 +179,13 @@
       }
     },
     {
-      "image_path": "images/D40/postcard-7.png",
+      "image_path": "images/D40/postcard-7.jpg",
       "caption": "威尼斯大运河抵达",
       "beat_label": "威尼斯大运河抵达",
       "narration_text": "路线推进到威尼斯大运河抵达时，画面的重心也跟着改变。威尼斯把今天的陆路行程收束到潟湖。Grand Canal、Santa Maria della Salute、宫殿立面和水面光线，让终点从阿尔卑斯和平原转入海洋贸易城市的空间语言。",
       "narration_excerpt": "路线推进到威尼斯大运河抵达时，画面的重心也跟着改变。威尼斯把今天的陆路行程收束到潟湖。Grand Canal、Santa Maria della Salute、宫殿立面和水面光线，让终点从阿尔卑斯和平原转入海洋贸易城市的空间语言。",
       "narration_beat": "威尼斯大运河抵达",
-      "match_reason": "matched entry visual section for postcard-7.png",
+      "match_reason": "matched entry visual section for postcard-7.jpg",
       "start_sec": 143.82,
       "end_sec": 165.06,
       "segment_duration_sec": 21.24,
@@ -199,7 +199,7 @@
       }
     },
     {
-      "image_path": "images/D40/special-view-1.png",
+      "image_path": "images/D40/special-view-1.jpg",
       "caption": "高处回看路线结构",
       "beat_label": "路线回看",
       "narration_text": "最后抵达威尼斯，这一天的意义就清楚了：阿尔卑斯山口与意大利北部商业城市带。对 Terra Magna Traverse 来说，D40 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。",
@@ -229,14 +229,14 @@
   "source_checksums": {
     "entry_path": "6e34b50eaabda9d7cbf59973c9d6b2121b9d28fb84bfecffe6b410eb329e4495",
     "itinerary_path": "7f7f72e1d86f6eee1414fcac727f0d91eb54325872475423b4129f043f37dd75",
-    "images/D40/postcard-1.png": "e6daa4c142f72d95c9e0280cf3fa3a0e127789ac97bbbd6155b1bcb54a629feb",
-    "images/D40/postcard-2.png": "d257624acbdb8977dfb57814f6f1716daf00f3dbfa4826251418ba9ef9689bb2",
-    "images/D40/postcard-3.png": "2ea8bdb56c2ba806f728574ffe0b744b73762d2989dcd96c38c85857e60c9f15",
-    "images/D40/postcard-4.png": "d08a96a382877ba5446a46b3ef8bf1992897deafe5d6a5adb0e4acf147937b89",
-    "images/D40/postcard-5.png": "1d484465a503d8b2bd5e3cbc119e2f9fa8be6cf3f67ca8df266a616e12d638c1",
-    "images/D40/postcard-6.png": "70b51a8aaa9c4f91ff16bc27ec14753aa9ab5b0e9896618be6c70e81c9ae5188",
-    "images/D40/postcard-7.png": "c70e18825b8f47b85b471410fad0891451e00abc75994c0e03350901c4935173",
-    "images/D40/special-view-1.png": "8637eee8955d83b93e69c8c34d74748d5bbf153ce11f635e9fa7e2b24e579b6a",
-    "images/D40/summary.png": "d406e2c5c267470b845c894352bd7cb9326c295b60cd0db215bb75fa01593ee4"
+    "images/D40/postcard-1.jpg": "6f6ae33335427308d99ab4b5b14bbfb8ef5f4b13edee7a6d79ba3255f976451a",
+    "images/D40/postcard-2.jpg": "e66f7ca03426cff67a2f71a671ff521be503465ae7633226f4446399a045bc9e",
+    "images/D40/postcard-3.jpg": "001553ce59cb05db6eaa61af32339fdb047c2d8e95e868d41e046c2302b4c472",
+    "images/D40/postcard-4.jpg": "334788126177c471261af5384f7d44b300c0bc1582cf9a261580c6ad547e927f",
+    "images/D40/postcard-5.jpg": "13d7d0f862c436cb744808e5fa8dcd22545dcb770b35a7d768f1fc1a94332414",
+    "images/D40/postcard-6.jpg": "776dbde2f81fa8e1debabba9ca1aaa01d4f0ac468bd7d5ecc04c57eadd5b41bc",
+    "images/D40/postcard-7.jpg": "d6f8da720a36dd862a90d80386002c74efb613f9635f9896a14b73123ee7019a",
+    "images/D40/special-view-1.jpg": "790c6dbe503266a860c47aca2987274d7f7e674c9b8d4c4fa81592217130edf0",
+    "images/D40/summary.jpg": "a349979142ba39ae6529a3a30c5cbf94e8f5eac0a72f8eaadb9859afd521c597"
   }
 }
