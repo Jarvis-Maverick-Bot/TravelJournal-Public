@@ -1,0 +1,73 @@
+{
+  "version": "traveljournal_structured_replay_p1a_v0.5",
+  "day_id": "D40",
+  "generated_at": "2026-06-25T08:59:55Z",
+  "segments": [
+    {
+      "segment_id": "d40_from_to_to",
+      "day_id": "D40",
+      "from_label": "里昂",
+      "to_label": "日内瓦",
+      "country_sequence": [
+        "unknown"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D40 route segment 1: 里昂 to 日内瓦, derived from itinerary and visual cue order.",
+      "emotional_tone": "transit_continuity",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d40_summary"
+      ],
+      "related_card_ids": [
+        "d40_from_to_to_card",
+        "d40_from_to_to_card",
+        "d40_from_to_to_card"
+      ],
+      "privacy_level": "local_private_review"
+    },
+    {
+      "segment_id": "d40_from_to_to",
+      "day_id": "D40",
+      "from_label": "日内瓦",
+      "to_label": "米兰",
+      "country_sequence": [
+        "unknown"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D40 route segment 2: 日内瓦 to 米兰, derived from itinerary and visual cue order.",
+      "emotional_tone": "transit_continuity",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d40_summary"
+      ],
+      "related_card_ids": [
+        "d40_from_to_to_card",
+        "d40_from_to_to_card",
+        "d40_from_to_to_card"
+      ],
+      "privacy_level": "local_private_review"
+    },
+    {
+      "segment_id": "d40_from_to_to",
+      "day_id": "D40",
+      "from_label": "米兰",
+      "to_label": "威尼斯",
+      "country_sequence": [
+        "unknown"
+      ],
+      "transport_mode": "drive",
+      "route_context": "D40 route segment 3: 米兰 to 威尼斯, derived from itinerary and visual cue order.",
+      "emotional_tone": "arrival_closure",
+      "map_animation_candidate": true,
+      "related_media_ids": [
+        "d40_summary"
+      ],
+      "related_card_ids": [
+        "d40_from_to_to_card",
+        "d40_from_to_to_card",
+        "d40_from_to_to_card"
+      ],
+      "privacy_level": "local_private_review"
+    }
+  ]
+}

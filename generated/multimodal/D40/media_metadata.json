@@ -1,0 +1,205 @@
+{
+  "version": "traveljournal_structured_replay_p1a_v0.5",
+  "day_id": "D40",
+  "generated_at": "2026-06-25T08:59:55Z",
+  "media": [
+    {
+      "media_id": "d40_summary",
+      "day_id": "D40",
+      "relative_path": "images/D40/summary.png",
+      "role": "cover",
+      "title": "D40 路线总览",
+      "caption": "D40 路线总览",
+      "location_label": "D40 路线总览",
+      "scene_type": "route_cover",
+      "visual_description": "从里昂出发，D40 的路线不是一串机械坐标，而是经日内瓦、米兰，抵达威尼斯的一段旅行转场。",
+      "mood": "opening_overview",
+      "cover_candidate": true,
+      "transition_candidate": false,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "cover",
+        "d40"
+      ],
+      "source_cue_index": 0
+    },
+    {
+      "media_id": "d40_postcard_1",
+      "day_id": "D40",
+      "relative_path": "images/D40/postcard-1.png",
+      "role": "postcard",
+      "title": "里昂富维耶山与旧城出发",
+      "caption": "里昂富维耶山与旧城出发",
+      "location_label": "里昂富维耶山与旧城出发",
+      "scene_type": "travel_visual",
+      "visual_description": "路线推进到里昂富维耶山与旧城出发时，画面的重心也跟着改变。里昂从索恩河、旧城屋顶和 Fourviere 山的层次里开启 D40。河流交汇、坡地建筑和城市盆地，让今天的路线先有一个清晰的法国东南部内陆枢纽起点。",
+      "mood": "observational",
+      "cover_candidate": false,
+      "transition_candidate": true,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "postcard",
+        "location"
+      ],
+      "source_cue_index": 1
+    },
+    {
+      "media_id": "d40_postcard_2",
+      "day_id": "D40",
+      "relative_path": "images/D40/postcard-2.png",
+      "role": "postcard",
+      "title": "热克斯地区—日内瓦边境走廊",
+      "caption": "热克斯地区—日内瓦边境走廊",
+      "location_label": "热克斯地区—日内瓦边境走廊",
+      "scene_type": "travel_visual",
+      "visual_description": "下一处热克斯地区—日内瓦边境走廊不是简单的地点切换，而是当天节奏的一次换挡。Pays de Gex 到日内瓦一带标记法国 → 瑞士的国境转换。丘陵、湖盆、道路标识和边境城镇连续出现，让国家转换呈现为阿尔卑斯前地的地理与城市秩序变化。",
+      "mood": "observational",
+      "cover_candidate": false,
+      "transition_candidate": true,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "postcard",
+        "location"
+      ],
+      "source_cue_index": 2
+    },
+    {
+      "media_id": "d40_postcard_3",
+      "day_id": "D40",
+      "relative_path": "images/D40/postcard-3.png",
+      "role": "postcard",
+      "title": "莱芒湖与日内瓦大喷泉",
+      "caption": "莱芒湖与日内瓦大喷泉",
+      "location_label": "莱芒湖与日内瓦大喷泉",
+      "scene_type": "travel_visual",
+      "visual_description": "来到莱芒湖与日内瓦大喷泉，道路、建筑和河流关系开始给出新的提示。日内瓦把路线放在湖、城市和山之间。Jet d'Eau、莱芒湖港口、屋顶和远山共同构成瑞士段的视觉锚点，也把外交城市、湖畔生活和阿尔卑斯边缘连在一起。",
+      "mood": "observational",
+      "cover_candidate": false,
+      "transition_candidate": true,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "postcard",
+        "location"
+      ],
+      "source_cue_index": 3
+    },
+    {
+      "media_id": "d40_postcard_4",
+      "day_id": "D40",
+      "relative_path": "images/D40/postcard-4.png",
+      "role": "postcard",
+      "title": "勃朗峰方向阿尔卑斯接近段",
+      "caption": "勃朗峰方向阿尔卑斯接近段",
+      "location_label": "勃朗峰方向阿尔卑斯接近段",
+      "scene_type": "travel_visual",
+      "visual_description": "路线推进到勃朗峰方向阿尔卑斯接近段时，画面的重心也跟着改变。阿尔卑斯段是 D40 的地貌高点。山谷、道路、村镇和雪峰把路线压进更陡峭的空间，交通工程与山体尺度在这里同时变得可见。",
+      "mood": "observational",
+      "cover_candidate": false,
+      "transition_candidate": true,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "postcard",
+        "location"
+      ],
+      "source_cue_index": 4
+    },
+    {
+      "media_id": "d40_postcard_5",
+      "day_id": "D40",
+      "relative_path": "images/D40/postcard-5.png",
+      "role": "postcard",
+      "title": "奥斯塔谷地抵达意大利",
+      "caption": "奥斯塔谷地抵达意大利",
+      "location_label": "奥斯塔谷地抵达意大利",
+      "scene_type": "travel_visual",
+      "visual_description": "下一处奥斯塔谷地抵达意大利不是简单的地点切换，而是当天节奏的一次换挡。奥斯塔谷地让意大利段从山墙之间展开。石村、梯田、葡萄园、谷地道路和远山共同呈现出罗马—阿尔卑斯交通廊道的历史质感。",
+      "mood": "observational",
+      "cover_candidate": false,
+      "transition_candidate": true,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "postcard",
+        "location"
+      ],
+      "source_cue_index": 5
+    },
+    {
+      "media_id": "d40_postcard_6",
+      "day_id": "D40",
+      "relative_path": "images/D40/postcard-6.png",
+      "role": "postcard",
+      "title": "米兰大教堂与商业核心",
+      "caption": "米兰大教堂与商业核心",
+      "location_label": "米兰大教堂与商业核心",
+      "scene_type": "travel_visual",
+      "visual_description": "来到米兰大教堂与商业核心，道路、建筑和河流关系开始给出新的提示。米兰把 D40 接入波河平原的商业城市带。Duomo、Galleria、广场边缘和城市屋顶，让北意大利的金融、制造、时尚与交通网络在同一个节点上显形。",
+      "mood": "observational",
+      "cover_candidate": false,
+      "transition_candidate": true,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "postcard",
+        "location"
+      ],
+      "source_cue_index": 6
+    },
+    {
+      "media_id": "d40_postcard_7",
+      "day_id": "D40",
+      "relative_path": "images/D40/postcard-7.png",
+      "role": "postcard",
+      "title": "威尼斯大运河抵达",
+      "caption": "威尼斯大运河抵达",
+      "location_label": "威尼斯大运河抵达",
+      "scene_type": "travel_visual",
+      "visual_description": "路线推进到威尼斯大运河抵达时，画面的重心也跟着改变。威尼斯把今天的陆路行程收束到潟湖。Grand Canal、Santa Maria della Salute、宫殿立面和水面光线，让终点从阿尔卑斯和平原转入海洋贸易城市的空间语言。",
+      "mood": "observational",
+      "cover_candidate": false,
+      "transition_candidate": true,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "postcard",
+        "location"
+      ],
+      "source_cue_index": 7
+    },
+    {
+      "media_id": "d40_special_view_1",
+      "day_id": "D40",
+      "relative_path": "images/D40/special-view-1.png",
+      "role": "route_overview",
+      "title": "Route structure overview",
+      "caption": "高处回看路线结构",
+      "location_label": "高处回看路线结构",
+      "scene_type": "route_structure",
+      "visual_description": "最后抵达威尼斯，这一天的意义就清楚了：阿尔卑斯山口与意大利北部商业城市带。对 Terra Magna Traverse 来说，D40 不只是从一个地点到另一个地点，而是把这一段旅程推入更清晰的欧洲腹地。",
+      "mood": "closing_reflection",
+      "cover_candidate": false,
+      "transition_candidate": true,
+      "privacy_level": "local_private_review",
+      "contains_sensitive_content": false,
+      "tags": [
+        "d40",
+        "route_overview",
+        "location"
+      ],
+      "source_cue_index": 8
+    }
+  ]
+}
